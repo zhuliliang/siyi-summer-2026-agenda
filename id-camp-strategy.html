@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Siyi ID Camp Strategy</title>
+    <style>
+      :root {
+        --ink: #17212b;
+        --muted: #68717b;
+        --line: #dfe3e6;
+        --paper: #fbf8f1;
+        --white: #fff;
+        --green: #0b6b57;
+        --blue: #174b7a;
+        --red: #a6422b;
+        --gold: #c48a2c;
+        --shadow: 0 22px 60px rgba(23, 33, 43, 0.12);
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background:
+          linear-gradient(135deg, rgba(11, 107, 87, 0.10), transparent 34%),
+          linear-gradient(210deg, rgba(196, 138, 44, 0.14), transparent 44%),
+          var(--paper);
+        font-family: Georgia, "Times New Roman", serif;
+      }
+      .hero {
+        min-height: 72vh;
+        display: flex;
+        flex-direction: column;
+        padding: 28px clamp(20px, 5vw, 72px) 48px;
+        color: var(--white);
+        background:
+          linear-gradient(rgba(23, 33, 43, 0.52), rgba(23, 33, 43, 0.50)),
+          url("https://images.unsplash.com/photo-1526232761682-d26e03ac148e?auto=format&fit=crop&w=2200&q=80") center / cover;
+      }
+      .topbar {
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        font-family: "Trebuchet MS", Verdana, sans-serif;
+      }
+      .topbar a {
+        color: var(--white);
+        text-decoration: none;
+        border: 1px solid rgba(255, 255, 255, 0.42);
+        padding: 9px 13px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.18);
+      }
+      .hero-content { max-width: 980px; margin-top: auto; }
+      .eyebrow {
+        margin: 0 0 10px;
+        color: var(--gold);
+        font-family: "Trebuchet MS", Verdana, sans-serif;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      h1, h2, h3 { margin: 0; letter-spacing: 0; }
+      h1 {
+        max-width: 840px;
+        font-size: clamp(48px, 9vw, 108px);
+        line-height: 0.96;
+      }
+      h2 { font-size: clamp(30px, 4vw, 52px); line-height: 1; }
+      h3 { font-size: 23px; line-height: 1.15; }
+      .subtitle {
+        max-width: 760px;
+        font-size: clamp(18px, 2.2vw, 27px);
+        line-height: 1.35;
+        color: rgba(255, 255, 255, 0.88);
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 32px;
+        font-family: "Trebuchet MS", Verdana, sans-serif;
+      }
+      .hero-grid div {
+        min-height: 132px;
+        padding: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(12px);
+        border-radius: 8px;
+      }
+      .label, small { display: block; color: rgba(255, 255, 255, 0.72); }
+      .hero-grid strong {
+        display: block;
+        margin: 12px 0 8px;
+        font-size: 26px;
+        color: var(--white);
+      }
+      main { padding: 42px clamp(16px, 4vw, 60px) 64px; }
+      .section { max-width: 1180px; margin: 0 auto 42px; }
+      .section-heading { margin-bottom: 18px; }
+      .lede {
+        max-width: 980px;
+        font-size: 22px;
+        line-height: 1.45;
+      }
+      .panel, .camp-card, .action-card, .table-wrap {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: var(--shadow);
+      }
+      .panel { padding: 24px; }
+      .panel p, .camp-card p, .action-card p, li {
+        color: var(--muted);
+        line-height: 1.55;
+      }
+      .signal-grid, .camp-grid, .action-grid {
+        display: grid;
+        gap: 16px;
+      }
+      .signal-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .camp-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .action-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .camp-card, .action-card {
+        padding: 20px;
+        font-family: "Trebuchet MS", Verdana, sans-serif;
+      }
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        min-height: 28px;
+        margin-bottom: 12px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        color: var(--white);
+        background: var(--green);
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .tag.watch { background: var(--gold); }
+      .tag.risk { background: var(--red); }
+      .tag.academic { background: var(--blue); }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: "Trebuchet MS", Verdana, sans-serif;
+      }
+      th {
+        text-align: left;
+        background: var(--ink);
+        color: var(--white);
+        padding: 15px;
+        font-size: 15px;
+      }
+      td {
+        vertical-align: top;
+        padding: 15px;
+        border-top: 1px solid var(--line);
+        font-size: 15px;
+        line-height: 1.45;
+      }
+      td:first-child { color: var(--blue); font-weight: 700; }
+      .email-box {
+        margin-top: 16px;
+        padding: 18px;
+        border-left: 4px solid var(--green);
+        background: #f7f9f5;
+        border-radius: 0 8px 8px 0;
+        font-family: "Trebuchet MS", Verdana, sans-serif;
+      }
+      .email-box ul { margin-bottom: 0; }
+      .mobile-table { display: none; }
+      @media (max-width: 840px) {
+        .hero { min-height: 88vh; }
+        .topbar { justify-content: flex-start; }
+        .hero-grid, .signal-grid, .camp-grid, .action-grid { grid-template-columns: 1fr; }
+        .table-wrap { display: none; }
+        .mobile-table { display: grid; gap: 12px; }
+        .mobile-row {
+          padding: 16px;
+          border: 1px solid var(--line);
+          border-radius: 8px;
+          background: rgba(255, 255, 255, 0.9);
+          box-shadow: var(--shadow);
+          font-family: "Trebuchet MS", Verdana, sans-serif;
+        }
+        .mobile-row strong { color: var(--blue); }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero">
+      <nav class="topbar" aria-label="Page navigation">
+        <a href="index.html">Agenda</a>
+        <a href="#camp-nodes">Camp Nodes</a>
+        <a href="#outreach">Outreach</a>
+        <a href="#tracking">Tracking</a>
+      </nav>
+      <section class="hero-content">
+        <p class="eyebrow">Recruiting Workflow</p>
+        <h1>Siyi ID Camp Strategy</h1>
+        <p class="subtitle">How to turn the summer agenda into coach signals, pre-read opportunities, and a sharper college soccer recruiting plan.</p>
+        <div class="hero-grid" aria-label="Strategy summary">
+          <div><span class="label">Primary Asset</span><strong>GA Aspire Nationals</strong><small>Real match environment matters more than camp attendance alone.</small></div>
+          <div><span class="label">Core Question</span><strong>Coach Signal</strong><small>Did the coach watch, respond, request materials, or discuss pre-read?</small></div>
+          <div><span class="label">Academic Context</span><strong>SAT 1440</strong><small>Useful, but school-by-school test strategy is required.</small></div>
+        </div>
+      </section>
+    </header>
+
+    <main>
+      <section class="section">
+        <p class="eyebrow">Bottom Line</p>
+        <h2>Helpful, If Managed Like Recruiting</h2>
+        <p class="lede">
+          Siyi's summer ID camp plan is useful only if it becomes a recruiting workflow. The value is not that she attends more camps. The value is whether each event creates a coach interaction, a soccer evaluation, a transcript request, a pre-read path, or a clearer decision to move on.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="signal-grid">
+          <article class="panel">
+            <p class="eyebrow">Strong Signal</p>
+            <h3>Coach Asks For More</h3>
+            <p>A coach requests a full-game video, transcript, senior courses, a call, an updated tournament schedule, or academic pre-read materials.</p>
+          </article>
+          <article class="panel">
+            <p class="eyebrow">Medium Signal</p>
+            <h3>Coach Engages</h3>
+            <p>The coach replies before camp, recognizes her at camp, gives specific feedback, or asks her to stay in touch after Nationals.</p>
+          </article>
+          <article class="panel">
+            <p class="eyebrow">Weak Signal</p>
+            <h3>Attendance Only</h3>
+            <p>If the process is only registration, attendance, and a generic thank-you response, the application value is limited.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="camp-nodes">
+        <div class="section-heading">
+          <p class="eyebrow">Current Summer Nodes</p>
+          <h2>What To Watch At Each Event</h2>
+        </div>
+        <div class="camp-grid">
+          <article class="camp-card">
+            <span class="tag">Highest Value</span>
+            <h3>GA Aspire Nationals, California</h3>
+            <p><strong>June 25-30.</strong> This is the most important soccer asset of the summer because it shows real match intensity, decision-making, stamina, and emotional control.</p>
+            <ul>
+              <li>Send the schedule to target coaches before the event.</li>
+              <li>Capture quality game video and build a 3-5 minute highlight.</li>
+              <li>Keep one or two full-game videos for coaches who ask.</li>
+              <li>Watch the injury load after travel and repeated games.</li>
+            </ul>
+          </article>
+
+          <article class="camp-card">
+            <span class="tag">Priority 1</span>
+            <h3>Williams ID Camp</h3>
+            <p><strong>July 31.</strong> Williams is a top priority because it connects elite liberal arts, NESCAC soccer, a New England community, and Siyi's athlete-leader narrative.</p>
+            <ul>
+              <li>Email the coach before camp with video, transcript context, SAT, club, position, and schedule.</li>
+              <li>Follow up within 24 hours after camp.</li>
+              <li>Ask directly whether a transcript, full game, or pre-read would be useful.</li>
+            </ul>
+          </article>
+
+          <article class="camp-card">
+            <span class="tag watch">NESCAC Watch</span>
+            <h3>Trinity Camp</h3>
+            <p><strong>July 19.</strong> Trinity can be useful inside the NESCAC recruiting map, but it should not outrank Williams, Amherst, Bowdoin, Middlebury, or Colby unless the coach's interest is concrete.</p>
+            <ul>
+              <li>Check whether the coach is recruiting her position in her class.</li>
+              <li>Use the camp to compare realistic NESCAC support levels.</li>
+              <li>Keep it as a serious option only if follow-up is specific.</li>
+            </ul>
+          </article>
+
+          <article class="camp-card">
+            <span class="tag risk">High Academic Risk</span>
+            <h3>MIT Camp</h3>
+            <p><strong>July 23-24.</strong> MIT is attractive for biology and STEM, but SAT 1440 is a real risk because MIT requires SAT or ACT.</p>
+            <ul>
+              <li>Use the camp to test team and academic fit.</li>
+              <li>Do not treat MIT as a normal match school without coach interest or stronger academic evidence.</li>
+              <li>If MIT becomes serious, consider a retake strategy aiming for 1500+ and a strong math score.</li>
+            </ul>
+          </article>
+
+          <article class="camp-card">
+            <span class="tag watch">Exposure</span>
+            <h3>Babson ID Camp</h3>
+            <p><strong>June 7.</strong> Babson has soccer and entrepreneurship value, but it is not a natural academic fit if Siyi remains biology or life-sciences first.</p>
+            <ul>
+              <li>Keep Babson only if health entrepreneurship or biotech venture work becomes a real interest.</li>
+              <li>Otherwise treat it as soccer exposure or a backup path.</li>
+            </ul>
+          </article>
+
+          <article class="camp-card">
+            <span class="tag academic">Verify Carefully</span>
+            <h3>Crimson Soccer ID Camp</h3>
+            <p><strong>July 27-28.</strong> Confirm that this is the correct women's program, correct graduation-year fit, and the right coaching staff before assigning it high value.</p>
+            <ul>
+              <li>Verify that it is not a mismatched third-party or men's clinic.</li>
+              <li>Harvard/Ivy recruiting is different from DIII recruiting and needs separate academic evaluation.</li>
+              <li>Use it only if the coach access is real.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <p class="eyebrow">Missing From The Agenda</p>
+          <h2>Do Not Ignore These Schools</h2>
+        </div>
+        <div class="panel">
+          <p>The current calendar includes Babson, Trinity, MIT, Crimson, and Williams. Several high-fit schools are not represented by a direct camp or campus visit, but they still need coach outreach.</p>
+          <ul>
+            <li>Emory University</li>
+            <li>University of Chicago</li>
+            <li>Tufts University</li>
+            <li>Amherst College</li>
+            <li>Middlebury College</li>
+            <li>Bowdoin College</li>
+            <li>Colby College</li>
+            <li>Washington University in St. Louis</li>
+            <li>Johns Hopkins University</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section" id="outreach">
+        <div class="section-heading">
+          <p class="eyebrow">Before And After Each Camp</p>
+          <h2>Outreach Rules</h2>
+        </div>
+        <div class="action-grid">
+          <article class="action-card">
+            <span class="tag">7-10 Days Before</span>
+            <h3>Send Coach Email</h3>
+            <p>Introduce Siyi before the coach sees hundreds of camp players. The email should make her identifiable on the field.</p>
+          </article>
+          <article class="action-card">
+            <span class="tag">At Camp</span>
+            <h3>Create Recognition</h3>
+            <p>The goal is not just performance. The goal is for the coach to connect the player, video, transcript context, and school interest.</p>
+          </article>
+          <article class="action-card">
+            <span class="tag">24 Hours After</span>
+            <h3>Ask For Next Step</h3>
+            <p>Follow up quickly and ask whether she is a fit, whether a transcript is useful, and whether the coach is recruiting her position.</p>
+          </article>
+        </div>
+
+        <div class="email-box">
+          <h3>Pre-Camp Email Should Include</h3>
+          <ul>
+            <li>Name, graduation year, and Groton School.</li>
+            <li>SAT 1440 and a short academic-interest line: biology, life sciences, or health equity.</li>
+            <li>Position, dominant foot, height if relevant, club team, and current league path.</li>
+            <li>Camp date and GA Aspire Nationals schedule.</li>
+            <li>Highlight video and one full-game video.</li>
+            <li>A concise reason for interest in that school.</li>
+            <li>A direct question about evaluation, transcript review, or pre-read.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section" id="tracking">
+        <div class="section-heading">
+          <p class="eyebrow">Tracking</p>
+          <h2>What To Record</h2>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Field</th><th>Why It Matters</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>coach_contact_before_camp</td><td>Shows whether the camp started with an existing coach relationship.</td></tr>
+              <tr><td>coach_watched_video</td><td>Separates generic attendance from targeted evaluation.</td></tr>
+              <tr><td>coach_met_siyi_at_camp</td><td>Confirms that the coach connected the player to the profile.</td></tr>
+              <tr><td>post_camp_reply</td><td>Tracks whether follow-up was specific or generic.</td></tr>
+              <tr><td>asked_for_transcript</td><td>A stronger sign that the coach may evaluate recruit viability.</td></tr>
+              <tr><td>asked_for_full_game</td><td>Shows deeper soccer evaluation beyond highlights.</td></tr>
+              <tr><td>pre_read_possible</td><td>Critical for DIII admissions-support pathways.</td></tr>
+              <tr><td>coach_support_strength</td><td>Clarifies whether support is strong, soft, or only conversational.</td></tr>
+              <tr><td>testing_strategy</td><td>Marks submit, test optional, retake, or required for each school.</td></tr>
+              <tr><td>next_action</td><td>Keeps each school moving toward a decision.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="mobile-table">
+          <div class="mobile-row"><strong>coach_contact_before_camp</strong><p>Shows whether the camp started with an existing coach relationship.</p></div>
+          <div class="mobile-row"><strong>coach_watched_video</strong><p>Separates generic attendance from targeted evaluation.</p></div>
+          <div class="mobile-row"><strong>post_camp_reply</strong><p>Tracks whether follow-up was specific or generic.</p></div>
+          <div class="mobile-row"><strong>asked_for_transcript</strong><p>A stronger sign that the coach may evaluate recruit viability.</p></div>
+          <div class="mobile-row"><strong>pre_read_possible</strong><p>Critical for DIII admissions-support pathways.</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <p class="eyebrow">Risks</p>
+          <h2>Guardrails</h2>
+        </div>
+        <div class="panel">
+          <ul>
+            <li>Do not treat camp attendance as recruitment.</li>
+            <li>Do not stack more camps without coach communication.</li>
+            <li>Watch the stress-fracture recovery load across Nationals, travel, jet lag, and repeated ID camps.</li>
+            <li>MIT and Harvard/Crimson-type schools cannot be solved by soccer alone; SAT 1440 and transcript strength need separate review.</li>
+            <li>Division III schools do not offer athletic scholarships; the issue is admissions support and academic pre-read.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <p class="eyebrow">Priority Actions</p>
+          <h2>What Matters Most</h2>
+        </div>
+        <div class="action-grid">
+          <article class="action-card">
+            <span class="tag">1</span>
+            <h3>Build The Soccer Packet</h3>
+            <p>Highlight video, full-game video, transcript, position, club path, tournament schedule, coach references, and injury-recovery status.</p>
+          </article>
+          <article class="action-card">
+            <span class="tag">2</span>
+            <h3>Email Priority Coaches</h3>
+            <p>Do this for high-fit schools even if they are not on the current camp calendar.</p>
+          </article>
+          <article class="action-card">
+            <span class="tag">3</span>
+            <h3>Define The Goal</h3>
+            <p>For every event, decide whether the goal is coach evaluation, pre-read, campus fit, or simple exposure.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

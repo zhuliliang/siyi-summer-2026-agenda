@@ -3,3 +3,7 @@
 Public share version of the summer agenda.
 
 California accommodation note: Siyi plans to stay at the original Anaheim Hills hotel arranged by the team from June 24 to July 1.
+
+Pages:
+- `index.html`: summer agenda.
+- `id-camp-strategy.html`: English ID camp recruiting strategy.
