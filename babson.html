@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>School EA/ED Profile</title><link rel="icon" href="data:," /><link rel="stylesheet" href="school-page.css" /></head>
+  <body>
+    <header class="hero"><nav class="topbar" aria-label="Page navigation"><a href="ea-ed-dashboard.html">EA/ED Dashboard</a><a href="index.html">Agenda</a><a href="id-camp-strategy.html">ID Strategy</a></nav><section class="hero-content"><p class="eyebrow">School Profile</p><h1 id="schoolName"></h1><p class="subtitle" id="schoolProfile"></p></section></header>
+    <main>
+      <section class="section metric-grid"><article class="metric-card"><p class="eyebrow">Environment</p><strong id="environment"></strong></article><article class="metric-card"><p class="eyebrow">Conference</p><strong id="conference"></strong></article><article class="metric-card"><p class="eyebrow">Early Plan</p><strong><span id="earlyPlan"></span> <span id="earlyRate"></span></strong></article><article class="metric-card"><p class="eyebrow">Merit Aid</p><strong id="meritAid"></strong></article></section>
+      <section class="section grid"><article class="panel"><p class="eyebrow">Soccer</p><h2 id="soccerIntensity"></h2><p id="soccerCulture"></p></article><article class="panel"><p class="eyebrow">Scores From Sheet</p><div class="score-list" id="scoreRows"></div></article></section>
+      <section class="section grid"><article class="panel"><p class="eyebrow">Academics / ROI</p><h2 id="academicRigor"></h2><p id="roi"></p></article><article class="panel"><p class="eyebrow">Need-Based Aid</p><h2>Policy Note</h2><p id="needAid"></p></article></section>
+      <section class="section"><div class="section-heading"><p class="eyebrow">Similar Schools</p><h2>Cross-Comparison</h2></div><div class="peer-grid" id="peerCards"></div></section>
+      <section class="section"><div class="table-wrap"><table><thead><tr><th>School</th><th>Environment</th><th>Conference</th><th>Soccer</th><th>Academic</th><th>Early</th></tr></thead><tbody id="peerRows"></tbody></table></div></section>
+    </main>
+    <script>window.SCHOOL_SLUG = "babson";</script><script src="ea-ed-data.js"></script><script src="school-detail.js"></script>
+  </body>
+</html>

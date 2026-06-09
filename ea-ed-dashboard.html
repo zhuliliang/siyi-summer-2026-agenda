@@ -102,37 +102,16 @@
       .section { max-width: 1280px; margin: 0 auto 42px; }
       .section-heading { margin-bottom: 18px; }
       .lede { max-width: 980px; font-size: 21px; line-height: 1.45; }
-      .panel, .school-card, .metric-card, .matrix, .compare-wrap {
+      .panel, .school-card, .metric-card, .matrix, .compare-wrap, .control-panel {
         border: 1px solid var(--line);
         border-radius: 8px;
         background: rgba(255, 255, 255, 0.88);
         box-shadow: var(--shadow);
       }
-      .panel { padding: 24px; }
+      .panel, .control-panel { padding: 24px; }
       .panel p, .school-card p, .metric-card p, li {
         color: var(--muted);
         line-height: 1.55;
-      }
-      .controls {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin: 20px 0;
-        font-family: "Trebuchet MS", Verdana, sans-serif;
-      }
-      button {
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        padding: 9px 14px;
-        color: var(--ink);
-        background: rgba(255, 255, 255, 0.9);
-        font: inherit;
-        cursor: pointer;
-      }
-      button.active {
-        color: var(--white);
-        border-color: var(--green);
-        background: var(--green);
       }
       .metric-grid {
         display: grid;
@@ -140,32 +119,48 @@
         gap: 16px;
       }
       .metric-card {
-        min-height: 190px;
+        min-height: 170px;
         padding: 20px;
         font-family: "Trebuchet MS", Verdana, sans-serif;
       }
       .metric-card strong {
         display: block;
         margin: 12px 0 6px;
-        font-size: 34px;
+        font-size: 30px;
       }
-      .bar {
-        height: 10px;
-        margin-top: 16px;
-        overflow: hidden;
-        border-radius: 999px;
-        background: #e6e2d8;
+      .control-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        gap: 18px;
       }
-      .bar span {
-        display: block;
-        height: 100%;
-        width: var(--value);
-        border-radius: inherit;
-        background: var(--green);
+      .filters, .weights, .compare-controls {
+        display: grid;
+        gap: 12px;
+        font-family: "Trebuchet MS", Verdana, sans-serif;
       }
-      .bar.gold span { background: var(--gold); }
-      .bar.blue span { background: var(--blue); }
-      .bar.red span { background: var(--red); }
+      .select-row {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+      label { color: var(--muted); font-size: 13px; font-weight: 700; text-transform: uppercase; }
+      select {
+        width: 100%;
+        margin-top: 6px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 10px;
+        color: var(--ink);
+        background: var(--white);
+        font: inherit;
+      }
+      .weight-row {
+        display: grid;
+        grid-template-columns: 130px 1fr 32px;
+        gap: 10px;
+        align-items: center;
+      }
+      input[type="range"] { width: 100%; accent-color: var(--green); }
       .matrix {
         position: relative;
         min-height: 620px;
@@ -216,13 +211,7 @@
         font-weight: 700;
         line-height: 1.1;
       }
-      .dot.left span {
-        right: 18px;
-        left: auto;
-        text-align: right;
-      }
-      .dot.down span { top: 18px; }
-      .school-grid {
+      .school-grid, .compare-grid {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 16px;
@@ -232,6 +221,7 @@
         font-family: "Trebuchet MS", Verdana, sans-serif;
       }
       .school-card h3 { margin-bottom: 10px; }
+      .school-card a { color: var(--blue); font-weight: 700; }
       .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
       .tag {
         display: inline-flex;
@@ -246,11 +236,10 @@
       }
       .tag.blue { background: var(--blue); }
       .tag.gold { background: var(--gold); }
-      .tag.red { background: var(--red); }
       .score-list { display: grid; gap: 10px; margin-top: 16px; }
       .score-row {
         display: grid;
-        grid-template-columns: 94px 1fr 34px;
+        grid-template-columns: 110px 1fr 48px;
         gap: 10px;
         align-items: center;
         font-size: 13px;
@@ -288,7 +277,7 @@
         font-size: 15px;
         line-height: 1.45;
       }
-      td:first-child { color: var(--blue); font-weight: 700; }
+      td:first-child a { color: var(--blue); font-weight: 700; }
       .note {
         margin-top: 16px;
         color: var(--muted);
@@ -296,12 +285,12 @@
         line-height: 1.5;
       }
       @media (max-width: 980px) {
-        .hero-grid, .metric-grid, .school-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .hero-grid, .metric-grid, .school-grid, .compare-grid, .control-grid { grid-template-columns: 1fr; }
+        .select-row { grid-template-columns: 1fr; }
       }
       @media (max-width: 720px) {
         .hero { min-height: 88vh; }
         .topbar { justify-content: flex-start; }
-        .hero-grid, .metric-grid, .school-grid { grid-template-columns: 1fr; }
         .matrix { min-height: 520px; padding: 18px; }
         .matrix-plot { height: 410px; }
         .dot span { display: none; }
@@ -313,19 +302,19 @@
       <nav class="topbar" aria-label="Page navigation">
         <a href="index.html">Agenda</a>
         <a href="id-camp-strategy.html">ID Strategy</a>
+        <a href="#controls">Controls</a>
         <a href="#matrix">Matrix</a>
         <a href="#schools">Schools</a>
-        <a href="#compare">Compare</a>
       </nav>
       <section class="hero-content">
-        <p class="eyebrow">EA / ED Decision Model</p>
-        <h1>Make The Tradeoffs Visible</h1>
-        <p class="subtitle">A strategy dashboard for comparing early-application options through soccer pressure, academic rigor, ROI, financial aid, and early-round leverage.</p>
+        <p class="eyebrow">EA / ED Fact Explorer</p>
+        <h1>Make The Factors Visible</h1>
+        <p class="subtitle">A neutral dashboard for exploring early-application options through environment, soccer intensity, academic rigor, ROI, financial aid, and early-round data.</p>
         <div class="hero-grid" aria-label="Dashboard summary">
-          <div><span class="label">School Set</span><strong>12</strong><small>EA/ED targets from the preference sheet</small></div>
-          <div><span class="label">Main Tension</span><strong>Soccer x Rigor</strong><small>Strong fit can still mean heavy weekly load</small></div>
-          <div><span class="label">Best Early Leverage</span><strong>ED</strong><small>Most visible at Trinity, WashU, Emory, CMC, Babson</small></div>
-          <div><span class="label">Aid Pattern</span><strong>Need-based</strong><small>Merit aid is not the main lever at the elite LACs</small></div>
+          <div><span class="label">School Set</span><strong>12</strong><small>Rows from the preference sheet</small></div>
+          <div><span class="label">Conferences</span><strong>NESCAC / UAA / NEWMAC / SCIAC</strong><small>Soccer context grouped by conference</small></div>
+          <div><span class="label">Early Plans</span><strong>EA / ED</strong><small>Displayed as listed in the sheet</small></div>
+          <div><span class="label">Aid Fields</span><strong>Need + Merit</strong><small>Shown separately for each school</small></div>
         </div>
       </section>
     </header>
@@ -333,44 +322,55 @@
     <main>
       <section class="section">
         <p class="eyebrow">How To Read This</p>
-        <h2>It Is A Decision Lens, Not A Ranking</h2>
+        <h2>Facts First, User Judgment Second</h2>
         <p class="lede">
-          The sheet is comparing where an early application might be strategically sensible. A strong school can still be the wrong early choice if soccer pressure, academic load, travel, testing risk, and financial strategy do not line up with Siyi's current profile.
+          This page exposes variables from the sheet without assigning a verdict. The family can compare the facts directly and decide which questions to ask next.
         </p>
       </section>
 
       <section class="section">
         <div class="metric-grid">
-          <article class="metric-card">
-            <p class="eyebrow">Highest soccer pressure</p>
-            <strong>NESCAC</strong>
-            <p>Williams, Amherst, and Tufts carry championship-level internal competition.</p>
-            <div class="bar red" style="--value: 96%"><span></span></div>
-          </article>
-          <article class="metric-card">
-            <p class="eyebrow">Highest academic load</p>
-            <strong>MIT / UChicago / Swarthmore</strong>
-            <p>Extreme rigor changes the risk calculation, especially with SAT 1440.</p>
-            <div class="bar blue" style="--value: 94%"><span></span></div>
-          </article>
-          <article class="metric-card">
-            <p class="eyebrow">Most balanced value</p>
-            <strong>Emory / WashU</strong>
-            <p>Strong ROI, generous aid, and serious UAA soccer with support-oriented framing.</p>
-            <div class="bar" style="--value: 88%"><span></span></div>
-          </article>
-          <article class="metric-card">
-            <p class="eyebrow">Most tactical ED</p>
-            <strong>Trinity / CMC / Babson</strong>
-            <p>Higher early acceptance bands, but each needs a clear academic or soccer reason.</p>
-            <div class="bar gold" style="--value: 76%"><span></span></div>
-          </article>
+          <article class="metric-card"><p class="eyebrow">Rural rows</p><strong>2</strong><p>Williams and Amherst.</p></article>
+          <article class="metric-card"><p class="eyebrow">UAA rows</p><strong>4</strong><p>UChicago, WashU, Emory, and NYU.</p></article>
+          <article class="metric-card"><p class="eyebrow">Merit aid marked yes</p><strong>7</strong><p>Includes limited merit notation for NYU.</p></article>
+          <article class="metric-card"><p class="eyebrow">Extreme academic rows</p><strong>3</strong><p>MIT, UChicago, and Swarthmore.</p></article>
+        </div>
+      </section>
+
+      <section class="section" id="controls">
+        <div class="section-heading">
+          <p class="eyebrow">Interactive Controls</p>
+          <h2>Filter, Weight, Compare</h2>
+        </div>
+        <div class="control-grid">
+          <div class="control-panel">
+            <div class="filters">
+              <div class="select-row">
+                <label>Conference<select id="conferenceFilter"><option value="all">All conferences</option></select></label>
+                <label>Environment<select id="environmentFilter"><option value="all">All environments</option></select></label>
+                <label>Early Plan<select id="earlyFilter"><option value="all">All plans</option></select></label>
+              </div>
+              <div class="select-row">
+                <label>Merit Aid<select id="meritFilter"><option value="all">All merit fields</option></select></label>
+                <label>Sort<select id="sortSelect"><option value="name">Name</option><option value="weighted">Weighted view</option><option value="soccer">Soccer intensity</option><option value="academic">Academic rigor</option><option value="roi">ROI</option><option value="aid">Need-based aid</option></select></label>
+                <label>Rows shown<select id="limitSelect"><option value="12">12</option><option value="6">6</option><option value="3">3</option></select></label>
+              </div>
+            </div>
+          </div>
+          <div class="control-panel">
+            <div class="weights">
+              <div class="weight-row"><label>Soccer</label><input id="soccerWeight" type="range" min="0" max="5" value="3" /><b id="soccerWeightValue">3</b></div>
+              <div class="weight-row"><label>Academic</label><input id="academicWeight" type="range" min="0" max="5" value="3" /><b id="academicWeightValue">3</b></div>
+              <div class="weight-row"><label>ROI</label><input id="roiWeight" type="range" min="0" max="5" value="2" /><b id="roiWeightValue">2</b></div>
+              <div class="weight-row"><label>Aid</label><input id="aidWeight" type="range" min="0" max="5" value="2" /><b id="aidWeightValue">2</b></div>
+            </div>
+          </div>
         </div>
       </section>
 
       <section class="section" id="matrix">
         <div class="section-heading">
-          <p class="eyebrow">Decision Map</p>
+          <p class="eyebrow">Factor Map</p>
           <h2>Academic Rigor vs. Soccer Intensity</h2>
         </div>
         <div class="matrix">
@@ -378,327 +378,215 @@
           <span class="axis-label x">Soccer intensity</span>
           <div class="matrix-plot" id="matrixPlot"></div>
         </div>
-        <p class="note">Top-right schools are powerful but costly: high soccer intensity plus high academic load. The strategic question is whether coach support, pre-read, and Siyi's senior-year academic profile justify using ED/EA there.</p>
       </section>
 
       <section class="section" id="schools">
         <div class="section-heading">
           <p class="eyebrow">School Cards</p>
-          <h2>Filter By Strategy Lane</h2>
-        </div>
-        <div class="controls" aria-label="School filters">
-          <button class="active" data-filter="all">All</button>
-          <button data-filter="ed-core">ED Core</button>
-          <button data-filter="high-risk">High Risk</button>
-          <button data-filter="value-balance">Value Balance</button>
-          <button data-filter="tactical">Tactical Early</button>
+          <h2>Each Card Links To A School Page</h2>
         </div>
         <div class="school-grid" id="schoolGrid"></div>
       </section>
 
       <section class="section" id="compare">
         <div class="section-heading">
-          <p class="eyebrow">Side-by-side</p>
-          <h2>What The Sheet Is Really Saying</h2>
+          <p class="eyebrow">Three-School Compare</p>
+          <h2>Select Any Three Rows</h2>
+        </div>
+        <div class="control-panel compare-controls">
+          <div class="select-row">
+            <label>School A<select id="compareA"></select></label>
+            <label>School B<select id="compareB"></select></label>
+            <label>School C<select id="compareC"></select></label>
+          </div>
+        </div>
+        <div class="compare-grid" id="compareCards"></div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <p class="eyebrow">Full Fact Table</p>
+          <h2>Sheet Fields In One View</h2>
         </div>
         <div class="compare-wrap">
           <table>
             <thead>
               <tr>
                 <th>School</th>
-                <th>Early Round Read</th>
-                <th>Soccer Risk</th>
-                <th>Academic / ROI Read</th>
-                <th>Financial Aid</th>
-                <th>Decision Implication</th>
+                <th>Environment</th>
+                <th>Conference</th>
+                <th>Soccer</th>
+                <th>Academic</th>
+                <th>ROI</th>
+                <th>Early</th>
+                <th>Aid / Merit</th>
               </tr>
             </thead>
-            <tbody id="compareRows"></tbody>
+            <tbody id="tableRows"></tbody>
           </table>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="panel">
-          <p class="eyebrow">Current Recommendation</p>
-          <h2>Use This For Questions, Not Answers</h2>
-          <p>
-            Before choosing ED or EA, convert each school's row into three facts: coach signal, academic pre-read viability, and test-submission strategy. A school with a beautiful fit on paper should not receive ED unless at least two of those three facts are favorable.
-          </p>
         </div>
       </section>
     </main>
 
+    <script src="ea-ed-data.js"></script>
     <script>
-      const schools = [
-        {
-          name: "Williams",
-          lane: "ed-core",
-          env: "Rural",
-          league: "NESCAC",
-          early: "~10-12% ED",
-          soccer: 5,
-          academic: 5,
-          roi: 5,
-          aid: 5,
-          merit: "No",
-          x: 95,
-          y: 88,
-          labelClass: "left",
-          color: "#a6422b",
-          read: "Powerhouse NESCAC culture with immense starting-spot and tournament pressure.",
-          implication: "Only use ED if coach signal is serious and the rural, high-pressure soccer culture feels energizing."
-        },
-        {
-          name: "Amherst",
-          lane: "ed-core",
-          env: "Rural",
-          league: "NESCAC",
-          early: "~10-12% ED",
-          soccer: 5,
-          academic: 5,
-          roi: 5,
-          aid: 5,
-          merit: "No",
-          x: 91,
-          y: 94,
-          labelClass: "left",
-          color: "#a6422b",
-          read: "Historic winning culture with daily expectations and roster competition.",
-          implication: "Excellent fit if open curriculum and coach support align; do not treat ED as easier."
-        },
-        {
-          name: "Tufts",
-          lane: "ed-core",
-          env: "Urban/Vibrant",
-          league: "NESCAC",
-          early: "~12-15% ED",
-          soccer: 5,
-          academic: 5,
-          roi: 5,
-          aid: 4,
-          merit: "No",
-          x: 86,
-          y: 86,
-          labelClass: "left down",
-          color: "#a6422b",
-          read: "Elite NESCAC pressure inside a larger research-university setting.",
-          implication: "One of the cleanest Siyi matches if the coach and biology/human-health pathway are real."
-        },
-        {
-          name: "Trinity",
-          lane: "tactical",
-          env: "Urban/Vibrant",
-          league: "NESCAC",
-          early: "~30-40% ED",
-          soccer: 4,
-          academic: 3,
-          roi: 4,
-          aid: 4,
-          merit: "No",
-          x: 70,
-          y: 58,
-          labelClass: "down",
-          color: "#c48a2c",
-          read: "Intense NESCAC schedule without the same national-title pressure as Williams or Amherst.",
-          implication: "Potentially useful tactical ED if coach interest is strong enough to justify the trade."
-        },
-        {
-          name: "UChicago",
-          lane: "high-risk",
-          env: "Urban/Vibrant",
-          league: "UAA",
-          early: "~20-25% EA",
-          soccer: 4,
-          academic: 5,
-          roi: 5,
-          aid: 5,
-          merit: "Yes",
-          x: 78,
-          y: 94,
-          labelClass: "left",
-          color: "#174b7a",
-          read: "UAA travel plus the Core Curriculum creates a heavy dual-load environment.",
-          implication: "High intellectual fit, but EA strategy should be tied to test plan and coach signal."
-        },
-        {
-          name: "WashU",
-          lane: "value-balance",
-          env: "Urban/Vibrant",
-          league: "UAA",
-          early: "~25-30% ED",
-          soccer: 4,
-          academic: 5,
-          roi: 5,
-          aid: 5,
-          merit: "Yes",
-          x: 75,
-          y: 86,
-          labelClass: "left down",
-          color: "#0b6b57",
-          read: "Demanding UAA travel framed by a collaborative and supportive academic culture.",
-          implication: "Strong add for biology/pre-health plus DIII soccer; should enter the outreach queue."
-        },
-        {
-          name: "Emory",
-          lane: "value-balance",
-          env: "Urban/Vibrant",
-          league: "UAA",
-          early: "~25-30% ED",
-          soccer: 4,
-          academic: 5,
-          roi: 5,
-          aid: 5,
-          merit: "Yes",
-          x: 72,
-          y: 82,
-          labelClass: "left",
-          color: "#0b6b57",
-          read: "National travel balanced with life-science strength and pre-professional energy.",
-          implication: "One of the best current fits if the coach sees Siyi as recruit-level."
-        },
-        {
-          name: "NYU",
-          lane: "high-risk",
-          env: "Ultra-Urban",
-          league: "UAA",
-          early: "~10-15% ED",
-          soccer: 4,
-          academic: 5,
-          roi: 5,
-          aid: 3,
-          merit: "Limited",
-          x: 80,
-          y: 78,
-          labelClass: "left down",
-          color: "#174b7a",
-          read: "UAA travel plus urban intensity and competitive pre-professional culture.",
-          implication: "Keep if urban research/activism is central; otherwise team-community fit may be weaker."
-        },
-        {
-          name: "MIT",
-          lane: "high-risk",
-          env: "Urban/Vibrant",
-          league: "NEWMAC",
-          early: "~5% EA",
-          soccer: 3,
-          academic: 5,
-          roi: 5,
-          aid: 5,
-          merit: "No",
-          x: 54,
-          y: 94,
-          labelClass: "",
-          color: "#174b7a",
-          read: "Moderate-high soccer intensity but extreme academic selectivity and required testing.",
-          implication: "SAT 1440 makes this a high-risk EA unless retake, math score, transcript, or coach signal improves."
-        },
-        {
-          name: "Babson",
-          lane: "tactical",
-          env: "Urban-Adjacent",
-          league: "NEWMAC",
-          early: "~20-25% EA / ~30% ED",
-          soccer: 3,
-          academic: 3,
-          roi: 5,
-          aid: 4,
-          merit: "Yes",
-          x: 50,
-          y: 52,
-          labelClass: "",
-          color: "#c48a2c",
-          read: "Entrepreneurship ROI is elite, but the academic fit depends on business-health overlap.",
-          implication: "Useful only if Siyi's biology interest turns toward health entrepreneurship or biotech venture."
-        },
-        {
-          name: "Swarthmore",
-          lane: "high-risk",
-          env: "Urban-Adjacent",
-          league: "Centennial",
-          early: "~10-15% ED",
-          soccer: 4,
-          academic: 5,
-          roi: 5,
-          aid: 5,
-          merit: "Yes",
-          x: 66,
-          y: 96,
-          labelClass: "",
-          color: "#174b7a",
-          read: "Physical conference with heavy reading and workload pressure.",
-          implication: "Excellent intellectual fit, but stress load must be taken seriously."
-        },
-        {
-          name: "Claremont McKenna",
-          lane: "tactical",
-          env: "Urban-Adjacent",
-          league: "SCIAC",
-          early: "~25-30% ED",
-          soccer: 4,
-          academic: 5,
-          roi: 5,
-          aid: 4,
-          merit: "Yes",
-          x: 72,
-          y: 74,
-          labelClass: "left",
-          color: "#c48a2c",
-          read: "West Coast competitive LAC with strong finance and leadership ROI.",
-          implication: "Good tactical option only if leadership/policy/business becomes more central than biology."
-        }
-      ];
+      const schools = window.EAED_SCHOOLS;
+      const controls = {
+        conference: document.getElementById("conferenceFilter"),
+        environment: document.getElementById("environmentFilter"),
+        early: document.getElementById("earlyFilter"),
+        merit: document.getElementById("meritFilter"),
+        sort: document.getElementById("sortSelect"),
+        limit: document.getElementById("limitSelect"),
+        soccerWeight: document.getElementById("soccerWeight"),
+        academicWeight: document.getElementById("academicWeight"),
+        roiWeight: document.getElementById("roiWeight"),
+        aidWeight: document.getElementById("aidWeight")
+      };
+      const optionText = (value) => `<option value="${value}">${value}</option>`;
 
-      const matrix = document.getElementById("matrixPlot");
-      matrix.innerHTML = schools.map((school) => {
-        const x = `${school.x}%`;
-        const y = `${school.y}%`;
-        return `<div class="dot ${school.labelClass}" style="--x:${x};--y:${y};--dot:${school.color}"><span>${school.name}</span></div>`;
-      }).join("");
+      function unique(field) {
+        return [...new Set(schools.map((school) => school[field]))].sort();
+      }
 
-      const schoolGrid = document.getElementById("schoolGrid");
-      const compareRows = document.getElementById("compareRows");
+      controls.conference.innerHTML += unique("conference").map(optionText).join("");
+      controls.environment.innerHTML += unique("environment").map(optionText).join("");
+      controls.early.innerHTML += unique("earlyPlan").map(optionText).join("");
+      controls.merit.innerHTML += unique("meritAid").map(optionText).join("");
 
-      function render(filter = "all") {
-        const visible = filter === "all" ? schools : schools.filter((school) => school.lane === filter);
-        schoolGrid.innerHTML = visible.map((school) => `
+      const compareSelects = ["compareA", "compareB", "compareC"].map((id) => document.getElementById(id));
+      compareSelects.forEach((select, index) => {
+        select.innerHTML = schools.map((school) => `<option value="${school.slug}">${school.shortName}</option>`).join("");
+        select.value = schools[index].slug;
+      });
+
+      function weightValue() {
+        return {
+          soccer: Number(controls.soccerWeight.value),
+          academic: Number(controls.academicWeight.value),
+          roi: Number(controls.roiWeight.value),
+          aid: Number(controls.aidWeight.value)
+        };
+      }
+
+      function weightedScore(school) {
+        const weight = weightValue();
+        const totalWeight = weight.soccer + weight.academic + weight.roi + weight.aid || 1;
+        return (
+          school.soccerScore * weight.soccer +
+          school.academicScore * weight.academic +
+          school.roiScore * weight.roi +
+          school.aidScore * weight.aid
+        ) / totalWeight;
+      }
+
+      function filteredSchools() {
+        const rows = schools.filter((school) => (
+          (controls.conference.value === "all" || school.conference === controls.conference.value) &&
+          (controls.environment.value === "all" || school.environment === controls.environment.value) &&
+          (controls.early.value === "all" || school.earlyPlan === controls.early.value) &&
+          (controls.merit.value === "all" || school.meritAid === controls.merit.value)
+        ));
+
+        const sorters = {
+          name: (a, b) => a.shortName.localeCompare(b.shortName),
+          weighted: (a, b) => weightedScore(b) - weightedScore(a),
+          soccer: (a, b) => b.soccerScore - a.soccerScore,
+          academic: (a, b) => b.academicScore - a.academicScore,
+          roi: (a, b) => b.roiScore - a.roiScore,
+          aid: (a, b) => b.aidScore - a.aidScore
+        };
+        rows.sort(sorters[controls.sort.value]);
+        return rows.slice(0, Number(controls.limit.value));
+      }
+
+      function renderMatrix(rows) {
+        document.getElementById("matrixPlot").innerHTML = rows.map((school) => `
+          <a class="dot" href="${school.slug}.html" style="--x:${school.x}%;--y:${school.y}%;--dot:${school.color}" aria-label="${school.name}">
+            <span>${school.shortName}</span>
+          </a>
+        `).join("");
+      }
+
+      function scoreRows(school) {
+        return [
+          ["Soccer", school.soccerScore],
+          ["Academic", school.academicScore],
+          ["ROI", school.roiScore],
+          ["Aid", school.aidScore],
+          ["Weighted", weightedScore(school).toFixed(1)]
+        ].map(([label, score]) => `
+          <div class="score-row">
+            <span>${label}</span>
+            <div class="mini-bar"><span style="--score:${score}"></span></div>
+            <b>${score}</b>
+          </div>
+        `).join("");
+      }
+
+      function renderSchools(rows) {
+        document.getElementById("schoolGrid").innerHTML = rows.map((school) => `
           <article class="school-card">
-            <h3>${school.name}</h3>
+            <h3>${school.shortName}</h3>
             <div class="tag-row">
-              <span class="tag">${school.league}</span>
-              <span class="tag blue">${school.env}</span>
-              <span class="tag ${school.lane === "high-risk" ? "red" : school.lane === "tactical" ? "gold" : ""}">${school.lane.replace("-", " ")}</span>
+              <span class="tag">${school.conference}</span>
+              <span class="tag blue">${school.environment}</span>
+              <span class="tag gold">${school.earlyPlan} ${school.earlyRate}</span>
             </div>
-            <p>${school.read}</p>
-            <div class="score-list">
-              <div class="score-row"><span>Soccer</span><div class="mini-bar"><span style="--score:${school.soccer}"></span></div><b>${school.soccer}/5</b></div>
-              <div class="score-row"><span>Academic</span><div class="mini-bar"><span style="--score:${school.academic}"></span></div><b>${school.academic}/5</b></div>
-              <div class="score-row"><span>ROI</span><div class="mini-bar"><span style="--score:${school.roi}"></span></div><b>${school.roi}/5</b></div>
-              <div class="score-row"><span>Aid</span><div class="mini-bar"><span style="--score:${school.aid}"></span></div><b>${school.aid}/5</b></div>
-            </div>
+            <p>${school.profile}</p>
+            <div class="score-list">${scoreRows(school)}</div>
+            <p><a href="${school.slug}.html">Open school page</a></p>
           </article>
         `).join("");
+      }
 
-        compareRows.innerHTML = visible.map((school) => `
+      function renderTable(rows) {
+        document.getElementById("tableRows").innerHTML = rows.map((school) => `
           <tr>
-            <td>${school.name}</td>
-            <td>${school.early}</td>
-            <td>${school.league}; intensity ${school.soccer}/5</td>
-            <td>Academic ${school.academic}/5; ROI ${school.roi}/5</td>
-            <td>Aid ${school.aid}/5; merit: ${school.merit}</td>
-            <td>${school.implication}</td>
+            <td><a href="${school.slug}.html">${school.shortName}</a></td>
+            <td>${school.environment}</td>
+            <td>${school.conference}</td>
+            <td>${school.soccerIntensity}; ${school.soccerCulture}</td>
+            <td>${school.academicRigor}</td>
+            <td>${school.roi}</td>
+            <td>${school.earlyPlan} ${school.earlyRate}</td>
+            <td>${school.needAid}<br />Merit: ${school.meritAid}</td>
           </tr>
         `).join("");
       }
 
-      document.querySelectorAll("[data-filter]").forEach((button) => {
-        button.addEventListener("click", () => {
-          document.querySelectorAll("[data-filter]").forEach((item) => item.classList.remove("active"));
-          button.classList.add("active");
-          render(button.dataset.filter);
-        });
-      });
+      function renderCompare() {
+        const selected = compareSelects.map((select) => window.EAED_BY_SLUG[select.value]);
+        document.getElementById("compareCards").innerHTML = selected.map((school) => `
+          <article class="school-card">
+            <h3>${school.shortName}</h3>
+            <div class="tag-row">
+              <span class="tag">${school.conference}</span>
+              <span class="tag blue">${school.environment}</span>
+              <span class="tag gold">${school.earlyPlan} ${school.earlyRate}</span>
+            </div>
+            <p><strong>Soccer:</strong> ${school.soccerIntensity}</p>
+            <p><strong>Academic:</strong> ${school.academicRigor}</p>
+            <p><strong>ROI:</strong> ${school.roi}</p>
+            <p><strong>Aid:</strong> ${school.needAid}</p>
+            <p><a href="${school.slug}.html">Open school page</a></p>
+          </article>
+        `).join("");
+      }
 
+      function render() {
+        for (const key of ["soccerWeight", "academicWeight", "roiWeight", "aidWeight"]) {
+          document.getElementById(`${key}Value`).textContent = controls[key].value;
+        }
+        const rows = filteredSchools();
+        renderMatrix(rows);
+        renderSchools(rows);
+        renderTable(rows);
+        renderCompare();
+      }
+
+      Object.values(controls).forEach((control) => control.addEventListener("input", render));
+      compareSelects.forEach((select) => select.addEventListener("input", renderCompare));
       render();
     </script>
   </body>

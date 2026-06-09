@@ -8,3 +8,4 @@ Pages:
 - `index.html`: summer agenda.
 - `id-camp-strategy.html`: English ID camp recruiting strategy.
 - `ea-ed-dashboard.html`: EA/ED decision dashboard.
+- `williams.html`, `amherst.html`, `tufts.html`, `trinity.html`, `uchicago.html`, `washu.html`, `emory.html`, `nyu.html`, `mit.html`, `babson.html`, `swarthmore.html`, `claremont-mckenna.html`: school profile pages.
