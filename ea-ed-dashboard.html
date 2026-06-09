@@ -333,7 +333,7 @@
           <article class="metric-card"><p class="eyebrow">Rural rows</p><strong>2</strong><p>Williams and Amherst.</p></article>
           <article class="metric-card"><p class="eyebrow">UAA rows</p><strong>4</strong><p>UChicago, WashU, Emory, and NYU.</p></article>
           <article class="metric-card"><p class="eyebrow">Merit aid marked yes</p><strong>7</strong><p>Includes limited merit notation for NYU.</p></article>
-          <article class="metric-card"><p class="eyebrow">Extreme academic rows</p><strong>3</strong><p>MIT, UChicago, and Swarthmore.</p></article>
+          <article class="metric-card"><p class="eyebrow">Extreme academic rows</p><strong>3</strong><p>MIT, UChicago, and Swarthmore are marked Extreme, with different rigor profiles.</p></article>
         </div>
       </section>
 
@@ -502,7 +502,7 @@
 
       function renderMatrix(rows) {
         document.getElementById("matrixPlot").innerHTML = rows.map((school) => `
-          <a class="dot" href="${school.slug}.html" style="--x:${school.x}%;--y:${school.y}%;--dot:${school.color}" aria-label="${school.name}">
+          <a class="dot" href="${school.slug}.html" style="--x:${school.x}%;--y:${Math.min(96, school.academicScore * 19)}%;--dot:${school.color}" aria-label="${school.name}">
             <span>${school.shortName}</span>
           </a>
         `).join("");

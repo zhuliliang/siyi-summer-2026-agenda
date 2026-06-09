@@ -9,7 +9,7 @@ window.EAED_SCHOOLS = [
     soccerScore: 5,
     soccerCulture: "Powerhouse culture with intense internal competition for starting spots and pressure to make deep NCAA tournament runs.",
     academicRigor: "Exceptionally High",
-    academicScore: 5,
+    academicScore: 4.5,
     roi: "Elite (Wall Street / Consulting)",
     roiScore: 5,
     earlyPlan: "ED",
@@ -20,7 +20,6 @@ window.EAED_SCHOOLS = [
     profile: "Small rural liberal arts college with a very high-intensity NESCAC soccer environment.",
     similar: ["amherst", "tufts", "middlebury", "bowdoin"],
     x: 95,
-    y: 88,
     color: "#a6422b"
   },
   {
@@ -33,7 +32,7 @@ window.EAED_SCHOOLS = [
     soccerScore: 5,
     soccerCulture: "Powerhouse culture with historic winning expectations and daily competition for jersey and roster position.",
     academicRigor: "Exceptionally High",
-    academicScore: 5,
+    academicScore: 4.5,
     roi: "Elite (Finance / Healthcare)",
     roiScore: 5,
     earlyPlan: "ED",
@@ -44,7 +43,6 @@ window.EAED_SCHOOLS = [
     profile: "Rural top liberal arts college with open-curriculum identity and high NESCAC soccer pressure.",
     similar: ["williams", "tufts", "swarthmore", "claremont-mckenna"],
     x: 91,
-    y: 94,
     color: "#a6422b"
   },
   {
@@ -57,7 +55,7 @@ window.EAED_SCHOOLS = [
     soccerScore: 5,
     soccerCulture: "Elite NESCAC environment with championship expectations inside a larger national research university setting.",
     academicRigor: "Exceptionally High",
-    academicScore: 5,
+    academicScore: 4.5,
     roi: "Elite (Biotech / Finance)",
     roiScore: 5,
     earlyPlan: "ED",
@@ -68,7 +66,6 @@ window.EAED_SCHOOLS = [
     profile: "Research-university scale with NESCAC athletics and strong biotech/health adjacency.",
     similar: ["williams", "amherst", "emory", "washu"],
     x: 86,
-    y: 86,
     color: "#a6422b"
   },
   {
@@ -81,7 +78,7 @@ window.EAED_SCHOOLS = [
     soccerScore: 4,
     soccerCulture: "Highly intense NESCAC schedule with less overwhelming national championship pressure than Williams or Amherst.",
     academicRigor: "High",
-    academicScore: 3,
+    academicScore: 3.5,
     roi: "Very Good to Elite",
     roiScore: 4,
     earlyPlan: "ED",
@@ -92,7 +89,6 @@ window.EAED_SCHOOLS = [
     profile: "Urban NESCAC college with a high athletics bar and a comparatively higher estimated ED rate.",
     similar: ["tufts", "williams", "amherst", "babson"],
     x: 70,
-    y: 58,
     color: "#c48a2c"
   },
   {
@@ -105,7 +101,7 @@ window.EAED_SCHOOLS = [
     soccerScore: 4,
     soccerCulture: "National UAA travel layered on top of UChicago's rigorous core curriculum.",
     academicRigor: "Extreme (Rigorous Core Curriculum)",
-    academicScore: 5,
+    academicScore: 4.9,
     roi: "Elite (World-renowned for Economics / Academia)",
     roiScore: 5,
     earlyPlan: "EA",
@@ -116,7 +112,6 @@ window.EAED_SCHOOLS = [
     profile: "Urban research university with very high academic intensity and national UAA travel.",
     similar: ["washu", "emory", "nyu", "swarthmore"],
     x: 78,
-    y: 94,
     color: "#174b7a"
   },
   {
@@ -129,7 +124,7 @@ window.EAED_SCHOOLS = [
     soccerScore: 4,
     soccerCulture: "Grueling cross-country UAA schedule described as more manageable within a collaborative academic culture.",
     academicRigor: "Exceptionally High",
-    academicScore: 5,
+    academicScore: 4.5,
     roi: "Elite (Healthcare Econ / Consulting)",
     roiScore: 5,
     earlyPlan: "ED",
@@ -140,7 +135,6 @@ window.EAED_SCHOOLS = [
     profile: "UAA research university with health-science strength, strong ROI, and serious soccer travel demands.",
     similar: ["emory", "uchicago", "tufts", "nyu"],
     x: 75,
-    y: 86,
     color: "#0b6b57"
   },
   {
@@ -153,7 +147,7 @@ window.EAED_SCHOOLS = [
     soccerScore: 4,
     soccerCulture: "Demanding national UAA flights balanced with intense pre-professional and business expectations.",
     academicRigor: "Exceptionally High",
-    academicScore: 5,
+    academicScore: 4.5,
     roi: "Elite (Life Sciences Consulting)",
     roiScore: 5,
     earlyPlan: "ED",
@@ -164,7 +158,6 @@ window.EAED_SCHOOLS = [
     profile: "UAA research university with life-sciences strength and high pre-professional energy.",
     similar: ["washu", "uchicago", "tufts", "nyu"],
     x: 72,
-    y: 82,
     color: "#0b6b57"
   },
   {
@@ -177,7 +170,7 @@ window.EAED_SCHOOLS = [
     soccerScore: 4,
     soccerCulture: "UAA travel stress compounded by NYU's intense urban and pre-professional environment.",
     academicRigor: "Exceptionally High",
-    academicScore: 5,
+    academicScore: 4.5,
     roi: "Elite (Wall Street placement)",
     roiScore: 5,
     earlyPlan: "ED",
@@ -188,7 +181,6 @@ window.EAED_SCHOOLS = [
     profile: "Ultra-urban UAA option with strong Wall Street placement and heavy travel/campus intensity.",
     similar: ["uchicago", "washu", "emory", "babson"],
     x: 80,
-    y: 78,
     color: "#174b7a"
   },
   {
@@ -200,7 +192,7 @@ window.EAED_SCHOOLS = [
     soccerIntensity: "Moderate-High",
     soccerScore: 3,
     soccerCulture: "Depending on captains, off-season voluntary practices may feel highly structured and mandatory.",
-    academicRigor: "Extreme",
+    academicRigor: "Extreme (STEM / quantitative workload)",
     academicScore: 5,
     roi: "The Absolute Highest",
     roiScore: 5,
@@ -212,7 +204,6 @@ window.EAED_SCHOOLS = [
     profile: "Extreme STEM academic environment with NEWMAC soccer and required standardized testing.",
     similar: ["uchicago", "swarthmore", "babson", "tufts"],
     x: 54,
-    y: 94,
     color: "#174b7a"
   },
   {
@@ -225,7 +216,7 @@ window.EAED_SCHOOLS = [
     soccerScore: 3,
     soccerCulture: "Intense soccer environment with possible off-season flexibility for entrepreneurial projects.",
     academicRigor: "High (Highly practical)",
-    academicScore: 3,
+    academicScore: 3.5,
     roi: "Elite (#1 for Entrepreneurship)",
     roiScore: 5,
     earlyPlan: "EA / ED",
@@ -236,7 +227,6 @@ window.EAED_SCHOOLS = [
     profile: "Entrepreneurship-focused college with NEWMAC soccer and a practical academic orientation.",
     similar: ["mit", "trinity", "claremont-mckenna", "nyu"],
     x: 50,
-    y: 52,
     color: "#c48a2c"
   },
   {
@@ -249,7 +239,7 @@ window.EAED_SCHOOLS = [
     soccerScore: 4,
     soccerCulture: "Physical and demanding conference where athletes balance captain's practices with heavy reading loads.",
     academicRigor: "Extreme (Heavy reading/workload)",
-    academicScore: 5,
+    academicScore: 4.8,
     roi: "Elite (Per-capita PhD placement)",
     roiScore: 5,
     earlyPlan: "ED",
@@ -260,7 +250,6 @@ window.EAED_SCHOOLS = [
     profile: "Intense liberal arts academic environment with a physical Centennial soccer context.",
     similar: ["amherst", "uchicago", "mit", "claremont-mckenna"],
     x: 66,
-    y: 96,
     color: "#174b7a"
   },
   {
@@ -273,7 +262,7 @@ window.EAED_SCHOOLS = [
     soccerScore: 4,
     soccerCulture: "West Coast competitive environment where daily intensity depends heavily on coach roster size.",
     academicRigor: "Exceptionally High",
-    academicScore: 5,
+    academicScore: 4.5,
     roi: "Elite (West Coast High Finance)",
     roiScore: 5,
     earlyPlan: "ED",
@@ -284,7 +273,6 @@ window.EAED_SCHOOLS = [
     profile: "Claremont liberal arts college with leadership/finance orientation and SCIAC soccer.",
     similar: ["swarthmore", "babson", "amherst", "nyu"],
     x: 72,
-    y: 74,
     color: "#c48a2c"
   }
 ];
