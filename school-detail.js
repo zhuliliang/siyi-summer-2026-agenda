@@ -7,6 +7,7 @@
     const node = document.getElementById(id);
     if (node) node.textContent = text;
   };
+  const scoreText = (label, score) => label === "Academic rigor" ? Number(score).toFixed(2) : String(score);
 
   setText("schoolName", school.name);
   setText("schoolProfile", school.profile);
@@ -30,9 +31,16 @@
     <div class="score-row">
       <span>${label}</span>
       <div class="mini-bar"><span style="--score:${score}"></span></div>
-      <b>${score}/5</b>
+      <b>${scoreText(label, score)}/5</b>
     </div>
   `).join("");
+
+  const academicNode = document.getElementById("academicRigor");
+  if (academicNode) {
+    const detail = document.createElement("p");
+    detail.textContent = `Academic composite: #${school.academicRank} of ${window.EAED_SCHOOLS.length}; ${school.academicScore.toFixed(2)}/5; gap from top ${school.academicGapFromTop === 0 ? "0.00" : `-${school.academicGapFromTop.toFixed(2)}`}. ${school.academicNote}`;
+    academicNode.insertAdjacentElement("afterend", detail);
+  }
 
   const peerRows = peers.map((peer) => `
     <tr>
@@ -40,7 +48,7 @@
       <td>${peer.environment}</td>
       <td>${peer.conference}</td>
       <td>${peer.soccerIntensity}</td>
-      <td>${peer.academicRigor}</td>
+      <td>#${peer.academicRank}; ${peer.academicScore.toFixed(2)}; ${peer.academicRigor}</td>
       <td>${peer.earlyPlan} ${peer.earlyRate}</td>
     </tr>
   `).join("");
@@ -50,7 +58,7 @@
     <a class="peer-card" href="${peer.slug}.html">
       <span>${peer.conference}</span>
       <strong>${peer.shortName}</strong>
-      <small>${peer.environment}; ${peer.earlyPlan} ${peer.earlyRate}</small>
+      <small>${peer.environment}; Academic #${peer.academicRank} (${peer.academicScore.toFixed(2)}); ${peer.earlyPlan} ${peer.earlyRate}</small>
     </a>
   `).join("");
 })();

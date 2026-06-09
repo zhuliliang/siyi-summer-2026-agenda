@@ -91,7 +91,7 @@ main { padding: 42px clamp(16px, 4vw, 60px) 64px; }
 .score-list { display: grid; gap: 12px; }
 .score-row {
   display: grid;
-  grid-template-columns: 128px 1fr 34px;
+  grid-template-columns: 128px 1fr 56px;
   gap: 10px;
   align-items: center;
   font-family: "Trebuchet MS", Verdana, sans-serif;

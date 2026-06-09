@@ -290,3 +290,9 @@ window.EAED_SCHOOLS = [
 ];
 
 window.EAED_BY_SLUG = Object.fromEntries(window.EAED_SCHOOLS.map((school) => [school.slug, school]));
+window.EAED_ACADEMIC_RANKING = [...window.EAED_SCHOOLS].sort((a, b) => b.academicScore - a.academicScore);
+const eaedTopAcademicScore = window.EAED_ACADEMIC_RANKING[0].academicScore;
+window.EAED_ACADEMIC_RANKING.forEach((school, index) => {
+  school.academicRank = index + 1;
+  school.academicGapFromTop = Number((eaedTopAcademicScore - school.academicScore).toFixed(2));
+});

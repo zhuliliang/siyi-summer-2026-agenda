@@ -583,13 +583,11 @@
       }
 
       function renderAcademicList() {
-        const ranked = [...schools].sort((a, b) => b.academicScore - a.academicScore);
-        const topScore = ranked[0].academicScore;
-        document.getElementById("academicList").innerHTML = ranked.map((school, index) => `
+        document.getElementById("academicList").innerHTML = window.EAED_ACADEMIC_RANKING.map((school) => `
           <article class="academic-row">
-            <span class="academic-rank">${index + 1}</span>
+            <span class="academic-rank">${school.academicRank}</span>
             <b><a href="${school.slug}.html">${school.shortName}</a></b>
-            <p>${school.academicRigor}. Gap from top: ${index === 0 ? "0.00" : `-${(topScore - school.academicScore).toFixed(2)}`}. ${school.academicNote}</p>
+            <p>${school.academicRigor}. Gap from top: ${school.academicGapFromTop === 0 ? "0.00" : `-${school.academicGapFromTop.toFixed(2)}`}. ${school.academicNote}</p>
             <b>${school.academicScore.toFixed(2)}</b>
           </article>
         `).join("");
@@ -602,7 +600,7 @@
             <td>${school.environment}</td>
             <td>${school.conference}</td>
             <td>${school.soccerIntensity}; ${school.soccerCulture}</td>
-            <td>${school.academicRigor}<br />Composite: ${school.academicScore.toFixed(2)}</td>
+            <td>#${school.academicRank}; ${school.academicRigor}<br />Composite: ${school.academicScore.toFixed(2)}</td>
             <td>${school.roi}</td>
             <td>${school.earlyPlan} ${school.earlyRate}</td>
             <td>${school.needAid}<br />Merit: ${school.meritAid}</td>
@@ -621,7 +619,7 @@
               <span class="tag gold">${school.earlyPlan} ${school.earlyRate}</span>
             </div>
             <p><strong>Soccer:</strong> ${school.soccerIntensity}</p>
-            <p><strong>Academic:</strong> ${school.academicRigor}</p>
+            <p><strong>Academic:</strong> #${school.academicRank}; ${school.academicScore.toFixed(2)}; ${school.academicRigor}</p>
             <p><strong>ROI:</strong> ${school.roi}</p>
             <p><strong>Aid:</strong> ${school.needAid}</p>
             <p><a href="${school.slug}.html">Open school page</a></p>
