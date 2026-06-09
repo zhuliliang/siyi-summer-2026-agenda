@@ -7,3 +7,4 @@ California accommodation note: Siyi plans to stay at the original Anaheim Hills 
 Pages:
 - `index.html`: summer agenda.
 - `id-camp-strategy.html`: English ID camp recruiting strategy.
+- `ea-ed-dashboard.html`: EA/ED decision dashboard.

@@ -1,0 +1,705 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Siyi EA/ED Decision Dashboard</title>
+    <link rel="icon" href="data:," />
+    <style>
+      :root {
+        --ink: #17212b;
+        --muted: #68717b;
+        --line: #dfe3e6;
+        --paper: #fbf8f1;
+        --white: #fff;
+        --green: #0b6b57;
+        --blue: #174b7a;
+        --red: #a6422b;
+        --gold: #c48a2c;
+        --shadow: 0 22px 60px rgba(23, 33, 43, 0.12);
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background:
+          linear-gradient(135deg, rgba(11, 107, 87, 0.10), transparent 34%),
+          linear-gradient(210deg, rgba(196, 138, 44, 0.14), transparent 44%),
+          var(--paper);
+        font-family: Georgia, "Times New Roman", serif;
+      }
+      .hero {
+        min-height: 74vh;
+        display: flex;
+        flex-direction: column;
+        padding: 28px clamp(20px, 5vw, 72px) 48px;
+        color: var(--white);
+        background:
+          linear-gradient(rgba(23, 33, 43, 0.48), rgba(23, 33, 43, 0.52)),
+          url("https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=2200&q=80") center / cover;
+      }
+      .topbar {
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        font-family: "Trebuchet MS", Verdana, sans-serif;
+      }
+      .topbar a {
+        color: var(--white);
+        text-decoration: none;
+        border: 1px solid rgba(255, 255, 255, 0.42);
+        padding: 9px 13px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.18);
+      }
+      .hero-content { max-width: 1040px; margin-top: auto; }
+      .eyebrow {
+        margin: 0 0 10px;
+        color: var(--gold);
+        font-family: "Trebuchet MS", Verdana, sans-serif;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      h1, h2, h3 { margin: 0; letter-spacing: 0; }
+      h1 {
+        max-width: 900px;
+        font-size: clamp(48px, 9vw, 106px);
+        line-height: 0.96;
+      }
+      h2 { font-size: clamp(30px, 4vw, 52px); line-height: 1; }
+      h3 { font-size: 22px; line-height: 1.15; }
+      .subtitle {
+        max-width: 780px;
+        font-size: clamp(18px, 2.2vw, 27px);
+        line-height: 1.35;
+        color: rgba(255, 255, 255, 0.88);
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 32px;
+        font-family: "Trebuchet MS", Verdana, sans-serif;
+      }
+      .hero-grid div {
+        min-height: 124px;
+        padding: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(12px);
+        border-radius: 8px;
+      }
+      .label, small { display: block; color: rgba(255, 255, 255, 0.72); }
+      .hero-grid strong {
+        display: block;
+        margin: 12px 0 8px;
+        font-size: 26px;
+        color: var(--white);
+      }
+      main { padding: 42px clamp(16px, 4vw, 60px) 64px; }
+      .section { max-width: 1280px; margin: 0 auto 42px; }
+      .section-heading { margin-bottom: 18px; }
+      .lede { max-width: 980px; font-size: 21px; line-height: 1.45; }
+      .panel, .school-card, .metric-card, .matrix, .compare-wrap {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: var(--shadow);
+      }
+      .panel { padding: 24px; }
+      .panel p, .school-card p, .metric-card p, li {
+        color: var(--muted);
+        line-height: 1.55;
+      }
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 20px 0;
+        font-family: "Trebuchet MS", Verdana, sans-serif;
+      }
+      button {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 9px 14px;
+        color: var(--ink);
+        background: rgba(255, 255, 255, 0.9);
+        font: inherit;
+        cursor: pointer;
+      }
+      button.active {
+        color: var(--white);
+        border-color: var(--green);
+        background: var(--green);
+      }
+      .metric-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+      }
+      .metric-card {
+        min-height: 190px;
+        padding: 20px;
+        font-family: "Trebuchet MS", Verdana, sans-serif;
+      }
+      .metric-card strong {
+        display: block;
+        margin: 12px 0 6px;
+        font-size: 34px;
+      }
+      .bar {
+        height: 10px;
+        margin-top: 16px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: #e6e2d8;
+      }
+      .bar span {
+        display: block;
+        height: 100%;
+        width: var(--value);
+        border-radius: inherit;
+        background: var(--green);
+      }
+      .bar.gold span { background: var(--gold); }
+      .bar.blue span { background: var(--blue); }
+      .bar.red span { background: var(--red); }
+      .matrix {
+        position: relative;
+        min-height: 620px;
+        padding: 26px;
+        overflow: hidden;
+      }
+      .matrix-plot {
+        position: relative;
+        height: 500px;
+        border-left: 2px solid rgba(23, 33, 43, 0.35);
+        border-bottom: 2px solid rgba(23, 33, 43, 0.35);
+        background:
+          linear-gradient(to right, rgba(223, 227, 230, 0.7) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(223, 227, 230, 0.7) 1px, transparent 1px);
+        background-size: 20% 20%;
+      }
+      .axis-label {
+        position: absolute;
+        color: var(--muted);
+        font-family: "Trebuchet MS", Verdana, sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      .axis-label.y { top: 12px; left: 26px; }
+      .axis-label.x { right: 28px; bottom: 18px; }
+      .dot {
+        position: absolute;
+        left: var(--x);
+        bottom: var(--y);
+        width: 17px;
+        height: 17px;
+        transform: translate(-50%, 50%);
+        border: 3px solid var(--white);
+        border-radius: 999px;
+        background: var(--dot);
+        box-shadow: 0 7px 18px rgba(23, 33, 43, 0.28);
+      }
+      .dot span {
+        position: absolute;
+        left: 18px;
+        top: -9px;
+        width: max-content;
+        max-width: 140px;
+        color: var(--ink);
+        font-family: "Trebuchet MS", Verdana, sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1.1;
+      }
+      .dot.left span {
+        right: 18px;
+        left: auto;
+        text-align: right;
+      }
+      .dot.down span { top: 18px; }
+      .school-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+      .school-card {
+        padding: 20px;
+        font-family: "Trebuchet MS", Verdana, sans-serif;
+      }
+      .school-card h3 { margin-bottom: 10px; }
+      .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        min-height: 28px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        color: var(--white);
+        background: var(--green);
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .tag.blue { background: var(--blue); }
+      .tag.gold { background: var(--gold); }
+      .tag.red { background: var(--red); }
+      .score-list { display: grid; gap: 10px; margin-top: 16px; }
+      .score-row {
+        display: grid;
+        grid-template-columns: 94px 1fr 34px;
+        gap: 10px;
+        align-items: center;
+        font-size: 13px;
+      }
+      .mini-bar {
+        height: 8px;
+        border-radius: 999px;
+        background: #e6e2d8;
+        overflow: hidden;
+      }
+      .mini-bar span {
+        display: block;
+        height: 100%;
+        width: calc(var(--score) * 20%);
+        background: var(--blue);
+      }
+      .compare-wrap { overflow: auto; }
+      table {
+        width: 100%;
+        min-width: 980px;
+        border-collapse: collapse;
+        font-family: "Trebuchet MS", Verdana, sans-serif;
+      }
+      th {
+        text-align: left;
+        background: var(--ink);
+        color: var(--white);
+        padding: 15px;
+        font-size: 15px;
+      }
+      td {
+        vertical-align: top;
+        padding: 15px;
+        border-top: 1px solid var(--line);
+        font-size: 15px;
+        line-height: 1.45;
+      }
+      td:first-child { color: var(--blue); font-weight: 700; }
+      .note {
+        margin-top: 16px;
+        color: var(--muted);
+        font-family: "Trebuchet MS", Verdana, sans-serif;
+        line-height: 1.5;
+      }
+      @media (max-width: 980px) {
+        .hero-grid, .metric-grid, .school-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+      @media (max-width: 720px) {
+        .hero { min-height: 88vh; }
+        .topbar { justify-content: flex-start; }
+        .hero-grid, .metric-grid, .school-grid { grid-template-columns: 1fr; }
+        .matrix { min-height: 520px; padding: 18px; }
+        .matrix-plot { height: 410px; }
+        .dot span { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero">
+      <nav class="topbar" aria-label="Page navigation">
+        <a href="index.html">Agenda</a>
+        <a href="id-camp-strategy.html">ID Strategy</a>
+        <a href="#matrix">Matrix</a>
+        <a href="#schools">Schools</a>
+        <a href="#compare">Compare</a>
+      </nav>
+      <section class="hero-content">
+        <p class="eyebrow">EA / ED Decision Model</p>
+        <h1>Make The Tradeoffs Visible</h1>
+        <p class="subtitle">A strategy dashboard for comparing early-application options through soccer pressure, academic rigor, ROI, financial aid, and early-round leverage.</p>
+        <div class="hero-grid" aria-label="Dashboard summary">
+          <div><span class="label">School Set</span><strong>12</strong><small>EA/ED targets from the preference sheet</small></div>
+          <div><span class="label">Main Tension</span><strong>Soccer x Rigor</strong><small>Strong fit can still mean heavy weekly load</small></div>
+          <div><span class="label">Best Early Leverage</span><strong>ED</strong><small>Most visible at Trinity, WashU, Emory, CMC, Babson</small></div>
+          <div><span class="label">Aid Pattern</span><strong>Need-based</strong><small>Merit aid is not the main lever at the elite LACs</small></div>
+        </div>
+      </section>
+    </header>
+
+    <main>
+      <section class="section">
+        <p class="eyebrow">How To Read This</p>
+        <h2>It Is A Decision Lens, Not A Ranking</h2>
+        <p class="lede">
+          The sheet is comparing where an early application might be strategically sensible. A strong school can still be the wrong early choice if soccer pressure, academic load, travel, testing risk, and financial strategy do not line up with Siyi's current profile.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="metric-grid">
+          <article class="metric-card">
+            <p class="eyebrow">Highest soccer pressure</p>
+            <strong>NESCAC</strong>
+            <p>Williams, Amherst, and Tufts carry championship-level internal competition.</p>
+            <div class="bar red" style="--value: 96%"><span></span></div>
+          </article>
+          <article class="metric-card">
+            <p class="eyebrow">Highest academic load</p>
+            <strong>MIT / UChicago / Swarthmore</strong>
+            <p>Extreme rigor changes the risk calculation, especially with SAT 1440.</p>
+            <div class="bar blue" style="--value: 94%"><span></span></div>
+          </article>
+          <article class="metric-card">
+            <p class="eyebrow">Most balanced value</p>
+            <strong>Emory / WashU</strong>
+            <p>Strong ROI, generous aid, and serious UAA soccer with support-oriented framing.</p>
+            <div class="bar" style="--value: 88%"><span></span></div>
+          </article>
+          <article class="metric-card">
+            <p class="eyebrow">Most tactical ED</p>
+            <strong>Trinity / CMC / Babson</strong>
+            <p>Higher early acceptance bands, but each needs a clear academic or soccer reason.</p>
+            <div class="bar gold" style="--value: 76%"><span></span></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="matrix">
+        <div class="section-heading">
+          <p class="eyebrow">Decision Map</p>
+          <h2>Academic Rigor vs. Soccer Intensity</h2>
+        </div>
+        <div class="matrix">
+          <span class="axis-label y">Academic rigor</span>
+          <span class="axis-label x">Soccer intensity</span>
+          <div class="matrix-plot" id="matrixPlot"></div>
+        </div>
+        <p class="note">Top-right schools are powerful but costly: high soccer intensity plus high academic load. The strategic question is whether coach support, pre-read, and Siyi's senior-year academic profile justify using ED/EA there.</p>
+      </section>
+
+      <section class="section" id="schools">
+        <div class="section-heading">
+          <p class="eyebrow">School Cards</p>
+          <h2>Filter By Strategy Lane</h2>
+        </div>
+        <div class="controls" aria-label="School filters">
+          <button class="active" data-filter="all">All</button>
+          <button data-filter="ed-core">ED Core</button>
+          <button data-filter="high-risk">High Risk</button>
+          <button data-filter="value-balance">Value Balance</button>
+          <button data-filter="tactical">Tactical Early</button>
+        </div>
+        <div class="school-grid" id="schoolGrid"></div>
+      </section>
+
+      <section class="section" id="compare">
+        <div class="section-heading">
+          <p class="eyebrow">Side-by-side</p>
+          <h2>What The Sheet Is Really Saying</h2>
+        </div>
+        <div class="compare-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>School</th>
+                <th>Early Round Read</th>
+                <th>Soccer Risk</th>
+                <th>Academic / ROI Read</th>
+                <th>Financial Aid</th>
+                <th>Decision Implication</th>
+              </tr>
+            </thead>
+            <tbody id="compareRows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="panel">
+          <p class="eyebrow">Current Recommendation</p>
+          <h2>Use This For Questions, Not Answers</h2>
+          <p>
+            Before choosing ED or EA, convert each school's row into three facts: coach signal, academic pre-read viability, and test-submission strategy. A school with a beautiful fit on paper should not receive ED unless at least two of those three facts are favorable.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const schools = [
+        {
+          name: "Williams",
+          lane: "ed-core",
+          env: "Rural",
+          league: "NESCAC",
+          early: "~10-12% ED",
+          soccer: 5,
+          academic: 5,
+          roi: 5,
+          aid: 5,
+          merit: "No",
+          x: 95,
+          y: 88,
+          labelClass: "left",
+          color: "#a6422b",
+          read: "Powerhouse NESCAC culture with immense starting-spot and tournament pressure.",
+          implication: "Only use ED if coach signal is serious and the rural, high-pressure soccer culture feels energizing."
+        },
+        {
+          name: "Amherst",
+          lane: "ed-core",
+          env: "Rural",
+          league: "NESCAC",
+          early: "~10-12% ED",
+          soccer: 5,
+          academic: 5,
+          roi: 5,
+          aid: 5,
+          merit: "No",
+          x: 91,
+          y: 94,
+          labelClass: "left",
+          color: "#a6422b",
+          read: "Historic winning culture with daily expectations and roster competition.",
+          implication: "Excellent fit if open curriculum and coach support align; do not treat ED as easier."
+        },
+        {
+          name: "Tufts",
+          lane: "ed-core",
+          env: "Urban/Vibrant",
+          league: "NESCAC",
+          early: "~12-15% ED",
+          soccer: 5,
+          academic: 5,
+          roi: 5,
+          aid: 4,
+          merit: "No",
+          x: 86,
+          y: 86,
+          labelClass: "left down",
+          color: "#a6422b",
+          read: "Elite NESCAC pressure inside a larger research-university setting.",
+          implication: "One of the cleanest Siyi matches if the coach and biology/human-health pathway are real."
+        },
+        {
+          name: "Trinity",
+          lane: "tactical",
+          env: "Urban/Vibrant",
+          league: "NESCAC",
+          early: "~30-40% ED",
+          soccer: 4,
+          academic: 3,
+          roi: 4,
+          aid: 4,
+          merit: "No",
+          x: 70,
+          y: 58,
+          labelClass: "down",
+          color: "#c48a2c",
+          read: "Intense NESCAC schedule without the same national-title pressure as Williams or Amherst.",
+          implication: "Potentially useful tactical ED if coach interest is strong enough to justify the trade."
+        },
+        {
+          name: "UChicago",
+          lane: "high-risk",
+          env: "Urban/Vibrant",
+          league: "UAA",
+          early: "~20-25% EA",
+          soccer: 4,
+          academic: 5,
+          roi: 5,
+          aid: 5,
+          merit: "Yes",
+          x: 78,
+          y: 94,
+          labelClass: "left",
+          color: "#174b7a",
+          read: "UAA travel plus the Core Curriculum creates a heavy dual-load environment.",
+          implication: "High intellectual fit, but EA strategy should be tied to test plan and coach signal."
+        },
+        {
+          name: "WashU",
+          lane: "value-balance",
+          env: "Urban/Vibrant",
+          league: "UAA",
+          early: "~25-30% ED",
+          soccer: 4,
+          academic: 5,
+          roi: 5,
+          aid: 5,
+          merit: "Yes",
+          x: 75,
+          y: 86,
+          labelClass: "left down",
+          color: "#0b6b57",
+          read: "Demanding UAA travel framed by a collaborative and supportive academic culture.",
+          implication: "Strong add for biology/pre-health plus DIII soccer; should enter the outreach queue."
+        },
+        {
+          name: "Emory",
+          lane: "value-balance",
+          env: "Urban/Vibrant",
+          league: "UAA",
+          early: "~25-30% ED",
+          soccer: 4,
+          academic: 5,
+          roi: 5,
+          aid: 5,
+          merit: "Yes",
+          x: 72,
+          y: 82,
+          labelClass: "left",
+          color: "#0b6b57",
+          read: "National travel balanced with life-science strength and pre-professional energy.",
+          implication: "One of the best current fits if the coach sees Siyi as recruit-level."
+        },
+        {
+          name: "NYU",
+          lane: "high-risk",
+          env: "Ultra-Urban",
+          league: "UAA",
+          early: "~10-15% ED",
+          soccer: 4,
+          academic: 5,
+          roi: 5,
+          aid: 3,
+          merit: "Limited",
+          x: 80,
+          y: 78,
+          labelClass: "left down",
+          color: "#174b7a",
+          read: "UAA travel plus urban intensity and competitive pre-professional culture.",
+          implication: "Keep if urban research/activism is central; otherwise team-community fit may be weaker."
+        },
+        {
+          name: "MIT",
+          lane: "high-risk",
+          env: "Urban/Vibrant",
+          league: "NEWMAC",
+          early: "~5% EA",
+          soccer: 3,
+          academic: 5,
+          roi: 5,
+          aid: 5,
+          merit: "No",
+          x: 54,
+          y: 94,
+          labelClass: "",
+          color: "#174b7a",
+          read: "Moderate-high soccer intensity but extreme academic selectivity and required testing.",
+          implication: "SAT 1440 makes this a high-risk EA unless retake, math score, transcript, or coach signal improves."
+        },
+        {
+          name: "Babson",
+          lane: "tactical",
+          env: "Urban-Adjacent",
+          league: "NEWMAC",
+          early: "~20-25% EA / ~30% ED",
+          soccer: 3,
+          academic: 3,
+          roi: 5,
+          aid: 4,
+          merit: "Yes",
+          x: 50,
+          y: 52,
+          labelClass: "",
+          color: "#c48a2c",
+          read: "Entrepreneurship ROI is elite, but the academic fit depends on business-health overlap.",
+          implication: "Useful only if Siyi's biology interest turns toward health entrepreneurship or biotech venture."
+        },
+        {
+          name: "Swarthmore",
+          lane: "high-risk",
+          env: "Urban-Adjacent",
+          league: "Centennial",
+          early: "~10-15% ED",
+          soccer: 4,
+          academic: 5,
+          roi: 5,
+          aid: 5,
+          merit: "Yes",
+          x: 66,
+          y: 96,
+          labelClass: "",
+          color: "#174b7a",
+          read: "Physical conference with heavy reading and workload pressure.",
+          implication: "Excellent intellectual fit, but stress load must be taken seriously."
+        },
+        {
+          name: "Claremont McKenna",
+          lane: "tactical",
+          env: "Urban-Adjacent",
+          league: "SCIAC",
+          early: "~25-30% ED",
+          soccer: 4,
+          academic: 5,
+          roi: 5,
+          aid: 4,
+          merit: "Yes",
+          x: 72,
+          y: 74,
+          labelClass: "left",
+          color: "#c48a2c",
+          read: "West Coast competitive LAC with strong finance and leadership ROI.",
+          implication: "Good tactical option only if leadership/policy/business becomes more central than biology."
+        }
+      ];
+
+      const matrix = document.getElementById("matrixPlot");
+      matrix.innerHTML = schools.map((school) => {
+        const x = `${school.x}%`;
+        const y = `${school.y}%`;
+        return `<div class="dot ${school.labelClass}" style="--x:${x};--y:${y};--dot:${school.color}"><span>${school.name}</span></div>`;
+      }).join("");
+
+      const schoolGrid = document.getElementById("schoolGrid");
+      const compareRows = document.getElementById("compareRows");
+
+      function render(filter = "all") {
+        const visible = filter === "all" ? schools : schools.filter((school) => school.lane === filter);
+        schoolGrid.innerHTML = visible.map((school) => `
+          <article class="school-card">
+            <h3>${school.name}</h3>
+            <div class="tag-row">
+              <span class="tag">${school.league}</span>
+              <span class="tag blue">${school.env}</span>
+              <span class="tag ${school.lane === "high-risk" ? "red" : school.lane === "tactical" ? "gold" : ""}">${school.lane.replace("-", " ")}</span>
+            </div>
+            <p>${school.read}</p>
+            <div class="score-list">
+              <div class="score-row"><span>Soccer</span><div class="mini-bar"><span style="--score:${school.soccer}"></span></div><b>${school.soccer}/5</b></div>
+              <div class="score-row"><span>Academic</span><div class="mini-bar"><span style="--score:${school.academic}"></span></div><b>${school.academic}/5</b></div>
+              <div class="score-row"><span>ROI</span><div class="mini-bar"><span style="--score:${school.roi}"></span></div><b>${school.roi}/5</b></div>
+              <div class="score-row"><span>Aid</span><div class="mini-bar"><span style="--score:${school.aid}"></span></div><b>${school.aid}/5</b></div>
+            </div>
+          </article>
+        `).join("");
+
+        compareRows.innerHTML = visible.map((school) => `
+          <tr>
+            <td>${school.name}</td>
+            <td>${school.early}</td>
+            <td>${school.league}; intensity ${school.soccer}/5</td>
+            <td>Academic ${school.academic}/5; ROI ${school.roi}/5</td>
+            <td>Aid ${school.aid}/5; merit: ${school.merit}</td>
+            <td>${school.implication}</td>
+          </tr>
+        `).join("");
+      }
+
+      document.querySelectorAll("[data-filter]").forEach((button) => {
+        button.addEventListener("click", () => {
+          document.querySelectorAll("[data-filter]").forEach((item) => item.classList.remove("active"));
+          button.classList.add("active");
+          render(button.dataset.filter);
+        });
+      });
+
+      render();
+    </script>
+  </body>
+</html>
