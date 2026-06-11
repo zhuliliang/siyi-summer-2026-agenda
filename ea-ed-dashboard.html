@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Siyi EA/ED Decision Dashboard</title>
+    <title>Siyi School Program Dashboard</title>
     <link rel="icon" href="data:," />
     <style>
       :root {
@@ -287,7 +287,7 @@
       .compare-wrap { overflow: auto; }
       table {
         width: 100%;
-        min-width: 980px;
+        min-width: 1500px;
         border-collapse: collapse;
         font-family: "Trebuchet MS", Verdana, sans-serif;
       }
@@ -338,14 +338,14 @@
         <a href="#schools">Schools</a>
       </nav>
       <section class="hero-content">
-        <p class="eyebrow">EA / ED Fact Explorer</p>
+        <p class="eyebrow">School Program Comparison</p>
         <h1>Make The Factors Visible</h1>
-        <p class="subtitle">A neutral dashboard for exploring early-application options through environment, soccer intensity, academic rigor, ROI, financial aid, and early-round data.</p>
+        <p class="subtitle">A neutral dashboard for exploring school-program fit through economics/finance/entrepreneurship, applied biology, maker-biology, D3 soccer, and updated read for Apple.</p>
         <div class="hero-grid" aria-label="Dashboard summary">
-          <div><span class="label">School Set</span><strong>12</strong><small>Rows from the preference sheet</small></div>
-          <div><span class="label">Conferences</span><strong>NESCAC / UAA / NEWMAC / SCIAC</strong><small>Soccer context grouped by conference</small></div>
-          <div><span class="label">Early Plans</span><strong>EA / ED</strong><small>Displayed as listed in the sheet</small></div>
-          <div><span class="label">Aid Fields</span><strong>Need + Merit</strong><small>Shown separately for each school</small></div>
+          <div><span class="label">School Set</span><strong>12</strong><small>Rows from the new program comparison sheet</small></div>
+          <div><span class="label">Program Axes</span><strong>Business + Biology + Maker</strong><small>Displayed directly from the PDF comparison</small></div>
+          <div><span class="label">Soccer Context</span><strong>D3 / Conference</strong><small>Reach and realism separated from academics</small></div>
+          <div><span class="label">Updated Read</span><strong>Apple Fit Note</strong><small>Kept as a factual planning note</small></div>
         </div>
       </section>
     </header>
@@ -361,10 +361,10 @@
 
       <section class="section">
         <div class="metric-grid">
-          <article class="metric-card"><p class="eyebrow">Rural rows</p><strong>2</strong><p>Williams and Amherst.</p></article>
-          <article class="metric-card"><p class="eyebrow">UAA rows</p><strong>4</strong><p>UChicago, WashU, Emory, and NYU.</p></article>
-          <article class="metric-card"><p class="eyebrow">Merit aid marked yes</p><strong>7</strong><p>Includes limited merit notation for NYU.</p></article>
-          <article class="metric-card"><p class="eyebrow">Extreme academic rows</p><strong>3</strong><p>MIT, UChicago, and Swarthmore are marked Extreme, with different rigor profiles.</p></article>
+          <article class="metric-card"><p class="eyebrow">New rows</p><strong>4</strong><p>Wellesley, Colby, Middlebury, and Bowdoin are now in the active set.</p></article>
+          <article class="metric-card"><p class="eyebrow">Removed rows</p><strong>4</strong><p>Emory, NYU, WashU, and Swarthmore are no longer in this comparison.</p></article>
+          <article class="metric-card"><p class="eyebrow">Best maker-bio note</p><strong>MIT</strong><p>Marked as the exceptional maker-biology environment.</p></article>
+          <article class="metric-card"><p class="eyebrow">Strategic fit note</p><strong>CMC / CMS</strong><p>Called out as one of the best overall fits in the new sheet.</p></article>
         </div>
       </section>
 
@@ -383,7 +383,7 @@
               </div>
               <div class="select-row">
                 <label>Merit Aid<select id="meritFilter"><option value="all">All merit fields</option></select></label>
-                <label>Sort<select id="sortSelect"><option value="name">Name</option><option value="weighted">Weighted view</option><option value="soccer">Soccer intensity</option><option value="academic">Academic rigor</option><option value="roi">ROI</option><option value="aid">Need-based aid</option></select></label>
+                <label>Sort<select id="sortSelect"><option value="name">Name</option><option value="weighted">Weighted view</option><option value="soccer">Soccer intensity</option><option value="academic">Academic rigor</option><option value="roi">Business / ROI</option><option value="aid">Bio / Maker</option></select></label>
                 <label>Rows shown<select id="limitSelect"><option value="12">12</option><option value="6">6</option><option value="3">3</option></select></label>
               </div>
             </div>
@@ -392,8 +392,8 @@
             <div class="weights">
               <div class="weight-row"><label>Soccer</label><input id="soccerWeight" type="range" min="0" max="5" value="3" /><b id="soccerWeightValue">3</b></div>
               <div class="weight-row"><label>Academic</label><input id="academicWeight" type="range" min="0" max="5" value="3" /><b id="academicWeightValue">3</b></div>
-              <div class="weight-row"><label>ROI</label><input id="roiWeight" type="range" min="0" max="5" value="2" /><b id="roiWeightValue">2</b></div>
-              <div class="weight-row"><label>Aid</label><input id="aidWeight" type="range" min="0" max="5" value="2" /><b id="aidWeightValue">2</b></div>
+              <div class="weight-row"><label>Business</label><input id="roiWeight" type="range" min="0" max="5" value="2" /><b id="roiWeightValue">2</b></div>
+              <div class="weight-row"><label>Bio/Maker</label><input id="aidWeight" type="range" min="0" max="5" value="2" /><b id="aidWeightValue">2</b></div>
             </div>
           </div>
         </div>
@@ -425,7 +425,7 @@
           <h2>Ranked Rigor Differences</h2>
         </div>
         <p class="lede">
-          This is a heuristic academic composite, not an official ranking. It separates schools that share the same broad rigor label by curriculum intensity, peer academic density, workload type, and institutional academic depth.
+          This is a heuristic academic composite, not an official ranking. It now follows the new program-comparison school set while keeping academic intensity separate from business, biology, maker-biology, and soccer fit.
         </p>
         <div class="academic-list" id="academicList"></div>
       </section>
@@ -459,9 +459,10 @@
                 <th>Conference</th>
                 <th>Soccer</th>
                 <th>Academic</th>
-                <th>ROI</th>
-                <th>Early</th>
-                <th>Aid / Merit</th>
+                <th>Economics / Finance / Entrepreneurship</th>
+                <th>Applied Biology</th>
+                <th>Maker for Biology</th>
+                <th>Updated Read</th>
               </tr>
             </thead>
             <tbody id="tableRows"></tbody>
@@ -518,7 +519,7 @@
           school.soccerScore * weight.soccer +
           school.academicScore * weight.academic +
           school.roiScore * weight.roi +
-          school.aidScore * weight.aid
+          school.bioMakerScore * weight.aid
         ) / totalWeight;
       }
 
@@ -536,7 +537,7 @@
           soccer: (a, b) => b.soccerScore - a.soccerScore,
           academic: (a, b) => b.academicScore - a.academicScore,
           roi: (a, b) => b.roiScore - a.roiScore,
-          aid: (a, b) => b.aidScore - a.aidScore
+          aid: (a, b) => b.bioMakerScore - a.bioMakerScore
         };
         rows.sort(sorters[controls.sort.value]);
         return rows.slice(0, Number(controls.limit.value));
@@ -554,8 +555,8 @@
         return [
           ["Soccer", school.soccerScore],
           ["Academic", school.academicScore],
-          ["ROI", school.roiScore],
-          ["Aid", school.aidScore],
+          ["Business", school.roiScore],
+          ["Bio/Maker", school.bioMakerScore],
           ["Weighted", weightedScore(school).toFixed(1)]
         ].map(([label, score]) => `
           <div class="score-row">
@@ -573,9 +574,12 @@
             <div class="tag-row">
               <span class="tag">${school.conference}</span>
               <span class="tag blue">${school.environment}</span>
-              <span class="tag gold">${school.earlyPlan} ${school.earlyRate}</span>
+              <span class="tag gold">Academic #${school.academicRank}</span>
             </div>
-            <p>${school.profile}</p>
+            <p>${school.updatedRead}</p>
+            <p><strong>Business:</strong> ${school.economicsProgram}</p>
+            <p><strong>Biology:</strong> ${school.biologyProgram}</p>
+            <p><strong>Maker:</strong> ${school.makerBioProgram}</p>
             <div class="score-list">${scoreRows(school)}</div>
             <p><a href="${school.slug}.html">Open school page</a></p>
           </article>
@@ -601,9 +605,10 @@
             <td>${school.conference}</td>
             <td>${school.soccerIntensity}; ${school.soccerCulture}</td>
             <td>#${school.academicRank}; ${school.academicRigor}<br />Composite: ${school.academicScore.toFixed(2)}</td>
-            <td>${school.roi}</td>
-            <td>${school.earlyPlan} ${school.earlyRate}</td>
-            <td>${school.needAid}<br />Merit: ${school.meritAid}</td>
+            <td>${school.economicsProgram}</td>
+            <td>${school.biologyProgram}</td>
+            <td>${school.makerBioProgram}</td>
+            <td>${school.updatedRead}</td>
           </tr>
         `).join("");
       }
@@ -620,8 +625,10 @@
             </div>
             <p><strong>Soccer:</strong> ${school.soccerIntensity}</p>
             <p><strong>Academic:</strong> #${school.academicRank}; ${school.academicScore.toFixed(2)}; ${school.academicRigor}</p>
-            <p><strong>ROI:</strong> ${school.roi}</p>
-            <p><strong>Aid:</strong> ${school.needAid}</p>
+            <p><strong>Business:</strong> ${school.economicsProgram}</p>
+            <p><strong>Biology:</strong> ${school.biologyProgram}</p>
+            <p><strong>Maker:</strong> ${school.makerBioProgram}</p>
+            <p><strong>Updated read:</strong> ${school.updatedRead}</p>
             <p><a href="${school.slug}.html">Open school page</a></p>
           </article>
         `).join("");

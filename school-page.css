@@ -79,6 +79,14 @@ main { padding: 42px clamp(16px, 4vw, 60px) 64px; }
   color: var(--muted);
   line-height: 1.55;
 }
+.program-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+  font-family: "Trebuchet MS", Verdana, sans-serif;
+}
+.program-list p { margin: 0; }
+.program-list strong { color: var(--ink); }
 .metric-card {
   min-height: 160px;
   font-family: "Trebuchet MS", Verdana, sans-serif;

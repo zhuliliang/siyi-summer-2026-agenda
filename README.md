@@ -8,20 +8,20 @@ California accommodation note: Siyi plans to stay at the original Anaheim Hills 
 
 - `index.html`: summer agenda and travel logistics.
 - `id-camp-strategy.html`: ID camp recruiting strategy and coach-outreach workflow.
-- `ea-ed-dashboard.html`: interactive EA/ED fact explorer.
+- `ea-ed-dashboard.html`: interactive school-program comparison dashboard.
 - School profile pages:
-  - `williams.html`
+  - `claremont-mckenna.html`
+  - `wellesley.html`
   - `amherst.html`
   - `tufts.html`
-  - `trinity.html`
-  - `uchicago.html`
-  - `washu.html`
-  - `emory.html`
-  - `nyu.html`
-  - `mit.html`
   - `babson.html`
-  - `swarthmore.html`
-  - `claremont-mckenna.html`
+  - `trinity.html`
+  - `williams.html`
+  - `uchicago.html`
+  - `colby.html`
+  - `middlebury.html`
+  - `bowdoin.html`
+  - `mit.html`
 
 ## Recommended Use
 
@@ -29,17 +29,18 @@ California accommodation note: Siyi plans to stay at the original Anaheim Hills 
 2. Use `id-camp-strategy.html` before and after each ID camp to track whether the camp produced coach signals.
 3. Use `ea-ed-dashboard.html` to compare schools by facts, not labels:
    - filter by conference, environment, early plan, or merit aid;
-   - adjust the soccer, academic, ROI, and aid weights;
+   - adjust the soccer, academic, business, and bio/maker weights;
    - compare any three schools side by side;
+   - review the PDF-derived program fields for economics/finance/entrepreneurship, applied biology, maker-biology, D3 soccer, and updated read for Apple;
    - open individual school pages from the cards or table.
 4. Use each school profile page to review the school's attributes and compare it with similar schools.
 
 ## Data Notes
 
-- `ea-ed-data.js` is the shared source for the EA/ED dashboard and all school profile pages.
+- `ea-ed-data.js` is the shared source for the dashboard and all active school profile pages.
 - `school-detail.js` renders individual school pages from the shared data.
 - `school-page.css` controls the shared school profile layout.
-- The EA/ED dashboard is intended to present facts from the preference sheet. It avoids final labels such as "core" or "risk" so the family can decide based on the visible factors.
+- The dashboard is intended to present facts from the latest school-program comparison PDF. It avoids final labels such as "core" or "risk" so the family can decide based on the visible factors.
 
 ## Maintenance
 

@@ -1,13 +1,13 @@
 (function () {
   const school = window.EAED_BY_SLUG[window.SCHOOL_SLUG] || window.EAED_SCHOOLS[0];
   const peers = school.similar.map((slug) => window.EAED_BY_SLUG[slug]).filter(Boolean);
-  document.title = `${school.shortName} EA/ED Profile`;
+  document.title = `${school.shortName} Program Profile`;
 
   const setText = (id, text) => {
     const node = document.getElementById(id);
     if (node) node.textContent = text;
   };
-  const scoreText = (label, score) => label === "Academic rigor" ? Number(score).toFixed(2) : String(score);
+  const scoreText = (label, score) => ["Academic rigor", "Bio/Maker"].includes(label) ? Number(score).toFixed(2) : String(score);
 
   setText("schoolName", school.name);
   setText("schoolProfile", school.profile);
@@ -25,8 +25,8 @@
   document.getElementById("scoreRows").innerHTML = [
     ["Soccer intensity", school.soccerScore],
     ["Academic rigor", school.academicScore],
-    ["ROI", school.roiScore],
-    ["Need-based aid", school.aidScore]
+    ["Business", school.roiScore],
+    ["Bio/Maker", school.bioMakerScore]
   ].map(([label, score]) => `
     <div class="score-row">
       <span>${label}</span>
@@ -40,6 +40,15 @@
     const detail = document.createElement("p");
     detail.textContent = `Academic composite: #${school.academicRank} of ${window.EAED_SCHOOLS.length}; ${school.academicScore.toFixed(2)}/5; gap from top ${school.academicGapFromTop === 0 ? "0.00" : `-${school.academicGapFromTop.toFixed(2)}`}. ${school.academicNote}`;
     academicNode.insertAdjacentElement("afterend", detail);
+    const programs = document.createElement("div");
+    programs.className = "program-list";
+    programs.innerHTML = `
+      <p><strong>Economics / Finance / Entrepreneurship:</strong> ${school.economicsProgram}</p>
+      <p><strong>Applied Biology:</strong> ${school.biologyProgram}</p>
+      <p><strong>Maker for Biology:</strong> ${school.makerBioProgram}</p>
+      <p><strong>Updated read for Apple:</strong> ${school.updatedRead}</p>
+    `;
+    detail.insertAdjacentElement("afterend", programs);
   }
 
   const peerRows = peers.map((peer) => `
@@ -48,7 +57,7 @@
       <td>${peer.environment}</td>
       <td>${peer.conference}</td>
       <td>${peer.soccerIntensity}</td>
-      <td>#${peer.academicRank}; ${peer.academicScore.toFixed(2)}; ${peer.academicRigor}</td>
+      <td>#${peer.academicRank}; ${peer.academicScore.toFixed(2)}; ${peer.academicRigor}<br />${peer.updatedRead}</td>
       <td>${peer.earlyPlan} ${peer.earlyRate}</td>
     </tr>
   `).join("");
